@@ -1,14 +1,15 @@
-package com.jiabangou.baiduwaimaisdk.model;
+package com.jiabangou.bdwmsdk.model;
 
-public class Cmd {
+import java.io.Serializable;
+
+public class Cmd implements Serializable {
     protected String cmd;
     protected int timestamp;
     protected int version;
     protected String ticket;
     protected int source;
     protected String sign;
-    protected String secret;
-
+    protected Object body;
 
     public String getCmd() {
         return cmd;
@@ -46,10 +47,10 @@ public class Cmd {
     public void setSign(String sign) {
         this.sign = sign;
     }
-    public String getSecret() {
-        return secret;
+    public Object getBody() {
+        return body;
     }
-    public void setSecret(String secret) {
-        this.secret = secret;
+    public void setBody(Object body) {
+        this.body = body;
     }
 }

@@ -1,25 +1,16 @@
-package com.jiabangou.baiduwaimaisdk.api;
+package com.jiabangou.bdwmsdk.api.impl;
 
-public class BaiDuWaiMaiInMemoryConfigStorage implements BaiDuWaiMaiConfigStorage {
+import com.jiabangou.bdwmsdk.api.BdWmConfigStorage;
+
+public class BdWmInMemoryConfigStorage implements BdWmConfigStorage {
 
     protected volatile int source;
     protected volatile String secret;
-    protected volatile int version;
-    protected volatile String url;
 
     protected volatile String http_proxy_host;
     protected volatile int http_proxy_port;
     protected volatile String http_proxy_username;
     protected volatile String http_proxy_password;
-
-    @Override
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     @Override
     public int getSource() {
@@ -37,15 +28,6 @@ public class BaiDuWaiMaiInMemoryConfigStorage implements BaiDuWaiMaiConfigStorag
 
     public void setSecret(String secret) {
         this.secret = secret;
-    }
-
-    @Override
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getHttp_proxy_host() {

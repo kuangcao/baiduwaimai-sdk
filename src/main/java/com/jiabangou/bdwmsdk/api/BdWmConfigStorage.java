@@ -1,14 +1,10 @@
-package com.jiabangou.baiduwaimaisdk.api;
+package com.jiabangou.bdwmsdk.api;
 
-public interface BaiDuWaiMaiConfigStorage {
+public interface BdWmConfigStorage {
 
     int getSource();
 
     String getSecret();
-
-    int getVersion();
-
-    String getUrl();
 
     String getHttp_proxy_host();
 
