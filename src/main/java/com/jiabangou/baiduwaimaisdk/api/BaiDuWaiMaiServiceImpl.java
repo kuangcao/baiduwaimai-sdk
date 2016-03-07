@@ -1,6 +1,7 @@
 package com.jiabangou.baiduwaimaisdk.api;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jiabangou.baiduwaimaisdk.client.JsonResponseHandler;
 import com.jiabangou.baiduwaimaisdk.client.LocalHttpClient;
 import com.jiabangou.baiduwaimaisdk.exception.BaiduWaiMaiErrorException;
@@ -9,6 +10,7 @@ import com.jiabangou.baiduwaimaisdk.model.Request;
 import com.jiabangou.baiduwaimaisdk.model.ResponseBody;
 import com.jiabangou.baiduwaimaisdk.model.goods.category.create.CategoryCreateRequest;
 import com.jiabangou.baiduwaimaisdk.model.goods.category.create.CategoryCreateResponse;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpHost;
@@ -27,6 +29,8 @@ import java.util.UUID;
 
 public class BaiDuWaiMaiServiceImpl implements BaiDuWaiMaiService {
 
+
+    private static final String API_URL = "http://api.waimai.baidu.com";
     protected BaiDuWaiMaiConfigStorage baiDuwaiMaiConfigStorage = new BaiDuWaiMaiInMemoryConfigStorage();
 
     protected CloseableHttpClient httpClient;
@@ -39,24 +43,6 @@ public class BaiDuWaiMaiServiceImpl implements BaiDuWaiMaiService {
             ContentType.APPLICATION_JSON.toString());
     protected static Header xmlHeader = new BasicHeader(HttpHeaders.CONTENT_TYPE,
             ContentType.APPLICATION_XML.toString());
-
-    protected static String md5Sign(String input){
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.getBytes());
-            BigInteger number = new BigInteger(1, messageDigest);
-            String hashtext = number.toString(16);
-            System.out.print(hashtext);
-            // Now we need to zero pad it if you actually want the full 32 chars.
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext.toUpperCase();
-        }
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     protected static String chinaToUnicode(String str){
         String result="";
@@ -101,20 +87,20 @@ public class BaiDuWaiMaiServiceImpl implements BaiDuWaiMaiService {
         //发起请求
         HttpUriRequest httpUriRequest = RequestBuilder.post()
                 .setHeader(jsonHeader)
-                .setUri(baiDuwaiMaiConfigStorage.getUrl())
+                .setUri(API_URL)
                 .setEntity(new StringEntity(JSON.toJSONString(request), Charset.forName("utf-8")))
                 .build();
         System.out.print(request);
         return localHttpClient.execute(httpUriRequest, JsonResponseHandler.createResponseHandler(responseClazz));
     }
 
-    private static void requestSign(Request requestData){
+    private static void requestSign(Request requestData) {
+
         //请求签名
-        String requestJson = JSON.toJSONString(requestData);
+        String requestJson = JSON.toJSONString(requestData, SerializerFeature.SortField);
         requestJson = requestJson.replace("/", "\\/");
         requestJson = chinaToUnicode(requestJson);
-        String requestSign = md5Sign(requestJson);
-        requestData.setSign(requestSign);
+        requestData.setSign(DigestUtils.md5Hex(requestJson).toUpperCase());
         requestData.setSecret(null);
         System.out.print(requestData);
     }
