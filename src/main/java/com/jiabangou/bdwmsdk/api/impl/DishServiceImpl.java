@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.DishService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
-import com.jiabangou.bdwmsdk.model.*;
+import com.jiabangou.bdwmsdk.model.Category;
+import com.jiabangou.bdwmsdk.model.CategoryGet;
+import com.jiabangou.bdwmsdk.model.CategoryUpdate;
+import com.jiabangou.bdwmsdk.model.Cmd;
 
 public class DishServiceImpl extends BdWmBaseService implements DishService {
 
@@ -50,7 +53,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public long createCategory(Category category) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_CREATE, category);
-        JSONArray object = (JSONArray)doPost(cmd).getJSONArray(DATA);
+        JSONArray object = (JSONArray) doPost(cmd).getJSONArray(DATA);
         return ((JSONObject) object.get(0)).getIntValue("id");
     }
 

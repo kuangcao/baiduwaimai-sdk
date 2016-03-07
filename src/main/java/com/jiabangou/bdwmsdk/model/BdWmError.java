@@ -12,6 +12,18 @@ public class BdWmError implements Serializable {
 
     private String json;
 
+    public static BdWmError fromJson(JSONObject jsonObject) {
+        JSONObject body = jsonObject.getJSONObject("body");
+        if (0 != body.getIntValue("errno")) {
+            BdWmError error = new BdWmError();
+            error.setErrorCode(body.getIntValue("errno"));
+            error.setErrorMsg(body.getString("error"));
+            error.setJson(jsonObject.toJSONString());
+            return error;
+        }
+        return null;
+    }
+
     public int getErrorCode() {
         return errorCode;
     }
@@ -34,18 +46,6 @@ public class BdWmError implements Serializable {
 
     public void setJson(String json) {
         this.json = json;
-    }
-
-    public static BdWmError fromJson(JSONObject jsonObject) {
-        JSONObject body = jsonObject.getJSONObject("body");
-        if (0 != body.getIntValue("errno")) {
-            BdWmError error = new BdWmError();
-            error.setErrorCode(body.getIntValue("errno"));
-            error.setErrorMsg(body.getString("error"));
-            error.setJson(jsonObject.toJSONString());
-            return error;
-        }
-        return null;
     }
 
     @Override

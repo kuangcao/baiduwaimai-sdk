@@ -30,6 +30,20 @@ public class BdWmBaseService implements BdWmService {
     protected HttpHost httpProxy;
     protected CloseableHttpClient httpClient;
 
+    protected static String chinaToUnicode(String str) {
+        String result = "";
+        for (int i = 0; i < str.length(); i++) {
+            int chr1 = (char) str.charAt(i);
+            if (chr1 >= 19968 && chr1 <= 171941) {
+                result += "\\u" + Integer.toHexString(chr1);
+            } else {
+                result += str.charAt(i);
+            }
+            System.out.print(result);
+        }
+        return result;
+    }
+
     @Override
     public void setBdWmConfigStorage(BdWmConfigStorage baiduWaimaiConfigStorage) {
         this.bdWmConfigStorage = baiduWaimaiConfigStorage;
@@ -87,19 +101,5 @@ public class BdWmBaseService implements BdWmService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    protected static String chinaToUnicode(String str) {
-        String result = "";
-        for (int i = 0; i < str.length(); i++) {
-            int chr1 = (char) str.charAt(i);
-            if (chr1 >= 19968 && chr1 <= 171941) {
-                result += "\\u" + Integer.toHexString(chr1);
-            } else {
-                result += str.charAt(i);
-            }
-            System.out.print(result);
-        }
-        return result;
     }
 }
