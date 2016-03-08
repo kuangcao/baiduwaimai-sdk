@@ -73,9 +73,7 @@ public class BdWmBaseService implements BdWmService {
 
     protected String createApiSignature(Cmd cmd) {
         CmdSign cmdSign = new CmdSign(cmd, bdWmConfigStorage.getSecret());
-
-        //请求签名
-        String requestJson = JSON.toJSONString(cmd, SerializerFeature.SortField);
+        String requestJson = JSON.toJSONString(cmdSign, SerializerFeature.SortField);
         requestJson = requestJson.replace("/", "\\/");
         requestJson = chinaToUnicode(requestJson);
         return DigestUtils.md5Hex(requestJson).toUpperCase();
@@ -88,7 +86,8 @@ public class BdWmBaseService implements BdWmService {
                 RequestConfig config = RequestConfig.custom().setProxy(httpProxy).build();
                 httpPost.setConfig(config);
             }
-            httpPost.setEntity(new StringEntity(JSON.toJSONString(cmd), Charset.forName("utf-8")));
+            httpPost.setEntity(new StringEntity(JSON.toJSONString(cmd, SerializerFeature.SortField),
+                    Charset.forName("utf-8")));
             CloseableHttpResponse response = this.httpClient.execute(httpPost);
             String resultContent = new BasicResponseHandler().handleResponse(response);
 
