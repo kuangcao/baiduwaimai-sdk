@@ -2,8 +2,12 @@ package com.jiabangou.bdwmsdk.api;
 
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
+<<<<<<< Updated upstream
 import com.jiabangou.bdwmsdk.model.OrderLite;
 import com.jiabangou.bdwmsdk.model.Page;
+=======
+import com.jiabangou.bdwmsdk.model.OrderStatus;
+>>>>>>> Stashed changes
 
 public interface OrderService extends BdWmService {
 
@@ -72,4 +76,28 @@ public interface OrderService extends BdWmService {
      * @throws BdWmErrorException
      */
     Page<OrderLite> getOrderLites(String orderId) throws BdWmErrorException;
+
+    /**
+     * 订单下行接口，创建订单
+     * 提供给合作方查看订单详情所用。
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_create
+     * </pre>
+     * @param order 订单信息
+     * @return 合作方订单id
+     * @throws BdWmErrorException
+     */
+    long create(OrderDetail order) throws BdWmErrorException;
+
+    /**
+     * <pre>
+     * 订单下行接口，更新订单状态
+     * 提供给合作方更新订单状态所用
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_status_push
+     * </pre>
+     * @param orderId 订单id
+     * @param status 订单状态
+     * @throws BdWmErrorException
+     */
+    void pushStatus(String orderId, OrderStatus status) throws BdWmErrorException;
+
 }

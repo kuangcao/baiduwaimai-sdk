@@ -96,6 +96,44 @@ public class Product implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (product_price != product.product_price) return false;
+        if (product_amount != product.product_amount) return false;
+        if (product_fee != product.product_fee) return false;
+        if (package_price != product.package_price) return false;
+        if (Double.compare(product.package_amount, package_amount) != 0) return false;
+        if (package_fee != product.package_fee) return false;
+        if (total_fee != product.total_fee) return false;
+        if (product_id != null ? !product_id.equals(product.product_id) : product.product_id != null) return false;
+        if (upc != null ? !upc.equals(product.upc) : product.upc != null) return false;
+        return product_name != null ? product_name.equals(product.product_name) : product.product_name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = product_id != null ? product_id.hashCode() : 0;
+        result = 31 * result + (upc != null ? upc.hashCode() : 0);
+        result = 31 * result + (product_name != null ? product_name.hashCode() : 0);
+        result = 31 * result + product_price;
+        result = 31 * result + product_amount;
+        result = 31 * result + product_fee;
+        result = 31 * result + package_price;
+        temp = Double.doubleToLongBits(package_amount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + package_fee;
+        result = 31 * result + total_fee;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Product{" +
                 "product_id='" + product_id + '\'' +

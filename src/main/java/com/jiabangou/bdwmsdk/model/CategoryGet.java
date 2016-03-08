@@ -26,4 +26,30 @@ public class CategoryGet implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CategoryGet that = (CategoryGet) o;
+
+        if (shop_id != null ? !shop_id.equals(that.shop_id) : that.shop_id != null) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = shop_id != null ? shop_id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryGet{" +
+                "shop_id='" + shop_id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

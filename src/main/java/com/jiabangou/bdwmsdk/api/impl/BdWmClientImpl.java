@@ -1,9 +1,6 @@
 package com.jiabangou.bdwmsdk.api.impl;
 
-import com.jiabangou.bdwmsdk.api.BdWmClient;
-import com.jiabangou.bdwmsdk.api.BdWmConfigStorage;
-import com.jiabangou.bdwmsdk.api.DishService;
-import com.jiabangou.bdwmsdk.api.ShopService;
+import com.jiabangou.bdwmsdk.api.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -24,6 +21,7 @@ public class BdWmClientImpl implements BdWmClient {
 
     private DishService dishService;
     private ShopService shopService;
+    private OrderService orderService;
 
     public void setBaiduWaimaiConfigStorage(BdWmConfigStorage baiduWaimaiConfigStorage) {
         this.baiduWaimaiConfigStorage = baiduWaimaiConfigStorage;
@@ -71,6 +69,19 @@ public class BdWmClientImpl implements BdWmClient {
             service.setHttpHost(httpProxy);
             service.setBdWmConfigStorage(baiduWaimaiConfigStorage);
             shopService = service;
+            return shopService;
+        } else {
+            return shopService;
+        }
+    }
+
+    public ShopService getOrderService() {
+        if (orderService == null) {
+            OrderService service = new OrderServiceImpl();
+            service.setHttpClient(httpClient);
+            service.setHttpHost(httpProxy);
+            service.setBdWmConfigStorage(baiduWaimaiConfigStorage);
+            orderService = service;
             return shopService;
         } else {
             return shopService;

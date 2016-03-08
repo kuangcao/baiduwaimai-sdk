@@ -87,6 +87,40 @@ public class Discount implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Discount discount = (Discount) o;
+
+        if (fee != discount.fee) return false;
+        if (baidu_rate != discount.baidu_rate) return false;
+        if (shop_rate != discount.shop_rate) return false;
+        if (agent_rate != discount.agent_rate) return false;
+        if (logistics_rate != discount.logistics_rate) return false;
+        if (type != null ? !type.equals(discount.type) : discount.type != null) return false;
+        if (activity_id != null ? !activity_id.equals(discount.activity_id) : discount.activity_id != null)
+            return false;
+        if (rule_id != null ? !rule_id.equals(discount.rule_id) : discount.rule_id != null) return false;
+        return desc != null ? desc.equals(discount.desc) : discount.desc == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (activity_id != null ? activity_id.hashCode() : 0);
+        result = 31 * result + (rule_id != null ? rule_id.hashCode() : 0);
+        result = 31 * result + fee;
+        result = 31 * result + baidu_rate;
+        result = 31 * result + shop_rate;
+        result = 31 * result + agent_rate;
+        result = 31 * result + logistics_rate;
+        result = 31 * result + (desc != null ? desc.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Discount{" +
                 "type='" + type + '\'' +

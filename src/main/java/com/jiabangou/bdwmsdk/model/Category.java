@@ -36,4 +36,34 @@ public class Category implements Serializable {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        if (rank != category.rank) return false;
+        if (shop_id != null ? !shop_id.equals(category.shop_id) : category.shop_id != null) return false;
+        return name != null ? name.equals(category.name) : category.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = shop_id != null ? shop_id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + rank;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "shop_id='" + shop_id + '\'' +
+                ", name='" + name + '\'' +
+                ", rank=" + rank +
+                '}';
+    }
 }

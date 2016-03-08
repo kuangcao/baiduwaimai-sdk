@@ -45,4 +45,37 @@ public class CategoryUpdate implements Serializable {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CategoryUpdate that = (CategoryUpdate) o;
+
+        if (rank != that.rank) return false;
+        if (shop_id != null ? !shop_id.equals(that.shop_id) : that.shop_id != null) return false;
+        if (old_name != null ? !old_name.equals(that.old_name) : that.old_name != null) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = shop_id != null ? shop_id.hashCode() : 0;
+        result = 31 * result + (old_name != null ? old_name.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + rank;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryUpdate{" +
+                "shop_id='" + shop_id + '\'' +
+                ", old_name='" + old_name + '\'' +
+                ", name='" + name + '\'' +
+                ", rank=" + rank +
+                '}';
+    }
 }

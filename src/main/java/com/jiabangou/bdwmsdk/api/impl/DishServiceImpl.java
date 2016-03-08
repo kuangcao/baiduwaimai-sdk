@@ -1,14 +1,16 @@
 package com.jiabangou.bdwmsdk.api.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.DishService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
-import com.jiabangou.bdwmsdk.model.Category;
-import com.jiabangou.bdwmsdk.model.CategoryGet;
-import com.jiabangou.bdwmsdk.model.CategoryUpdate;
-import com.jiabangou.bdwmsdk.model.Cmd;
+import com.jiabangou.bdwmsdk.model.*;
+import com.sun.tools.javac.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DishServiceImpl extends BdWmBaseService implements DishService {
 
@@ -72,6 +74,75 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         Category category = doPost(cmd).getObject(DATA, Category.class);
         category.setShop_id(shopId);
         return category;
+    }
+
+    @Override
+    public List<Category> getAllCategory(String shopId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        bodyMap.put("shop_id", shopId);
+        Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_ALL, bodyMap);
+        JSONArray objects = (JSONArray)doPost(cmd).getJSONArray(DATA);
+        List<Category> categories = List.nil();
+        for (Object object: objects){
+            Category category = JSON.parseObject(JSON.toJSONString(object), Category.class);
+            categories.add(category);
+        }
+        return categories;
+    }
+
+    @Override
+    public void create(Dish dish) throws BdWmErrorException {
+        Cmd cmd = createCmd(COMMAND_DISH_CREATE, dish);
+        doPost(cmd);
+    }
+
+    @Override
+    public void update(Dish dish) throws BdWmErrorException {
+        Cmd cmd = createCmd(COMMAND_DISH_UPDATE, dish);
+        doPost(cmd);
+    }
+
+    @Override
+    public void online(String shopId, String dishId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        bodyMap.put("shop_id", shopId);
+        bodyMap.put("dish_id", dishId);
+        Cmd cmd = createCmd(COMMAND_DISH_ONLINE, bodyMap);
+        doPost(cmd);
+    }
+
+    @Override
+    public void offline(String shopId, String dishId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        bodyMap.put("shop_id", shopId);
+        bodyMap.put("dish_id", dishId);
+        Cmd cmd = createCmd(COMMAND_DISH_OFFLINE, bodyMap);
+        doPost(cmd);
+    }
+
+    @Override
+    public void delete(String shopId, String dishId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        bodyMap.put("shop_id", shopId);
+        bodyMap.put("dish_id", dishId);
+        Cmd cmd = createCmd(COMMAND_DISH_DELETE, bodyMap);
+        doPost(cmd);
+    }
+
+    @Override
+    public void setThreshold(String shopId, String dishId, List<Threshold> thresholds) throws BdWmErrorException {
+        Map<String, Object> bodyMap = new HashMap<String, Object>(1);
+        bodyMap.put("shop_id", shopId);
+        bodyMap.put("dish_id", dishId);
+        bodyMap.put("threshold", thresholds);
+        Cmd cmd = createCmd(COMMAND_DISH_THRESHOLD_SET, bodyMap);
+        doPost(cmd);
+    }
+
+    @Override
+    public void replaceBatch(DishReplaceBatch dishReplaceBatch) throws BdWmErrorException {
+        Cmd cmd = createCmd(COMMAND_DISH_REPLACE_BATCH, dishReplaceBatch);
+        doPost(cmd);
     }
 
 }
