@@ -74,8 +74,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     @Override
     public long create(OrderDetail order) throws BdWmErrorException {
         Cmd cmd = createCmd(ORDER_CREATE, order);
-        long source_order_id = doPost(cmd).getJSONObject(DATA).getLongValue("source_order_id");
-        return source_order_id;
+        return doPost(cmd).getJSONObject(DATA).getLongValue("source_order_id");
     }
 
     @Override

@@ -75,16 +75,16 @@ public class BdWmClientImpl implements BdWmClient {
         }
     }
 
-    public ShopService getOrderService() {
+    public OrderService getOrderService() {
         if (orderService == null) {
             OrderService service = new OrderServiceImpl();
             service.setHttpClient(httpClient);
             service.setHttpHost(httpProxy);
             service.setBdWmConfigStorage(baiduWaimaiConfigStorage);
             orderService = service;
-            return shopService;
+            return orderService;
         } else {
-            return shopService;
+            return orderService;
         }
     }
 
