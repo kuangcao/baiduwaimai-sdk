@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jiabangou.baiduwaimaisdk</groupId>
+    <groupId>com.jiabangou</groupId>
     <artifactId>baiduwaimai-sdk</artifactId>
     <version>0.1-SNAPSHOT</version>
 
@@ -90,14 +90,14 @@
     </dependencies>
 
     <!--<distributionManagement>-->
-    <!--<snapshotRepository>-->
-    <!--<id>oss</id>-->
-    <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
-    <!--</snapshotRepository>-->
-    <!--<repository>-->
-    <!--<id>oss</id>-->
-    <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-    <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>oss</id>-->
+            <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+        <!--</snapshotRepository>-->
+        <!--<repository>-->
+            <!--<id>oss</id>-->
+            <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+        <!--</repository>-->
     <!--</distributionManagement>-->
 
 
