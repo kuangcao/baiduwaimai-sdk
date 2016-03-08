@@ -2,6 +2,8 @@ package com.jiabangou.bdwmsdk.api;
 
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
+import com.jiabangou.bdwmsdk.model.OrderLite;
+import com.jiabangou.bdwmsdk.model.Page;
 
 public interface OrderService extends BdWmService {
 
@@ -59,4 +61,15 @@ public interface OrderService extends BdWmService {
      */
     OrderDetail getOrderDetail(String orderId) throws BdWmErrorException;
 
+    /**
+     * <pre>
+     * 查看订单列表
+     * 提供给合作方查看订单列表所用。
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_list
+     * </pre>
+     * @param orderId
+     * @return
+     * @throws BdWmErrorException
+     */
+    Page<OrderLite> getOrderLites(String orderId) throws BdWmErrorException;
 }
