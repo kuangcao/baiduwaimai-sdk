@@ -39,7 +39,6 @@ public class BdWmBaseService implements BdWmService {
             } else {
                 result += str.charAt(i);
             }
-            System.out.print(result);
         }
         return result;
     }
