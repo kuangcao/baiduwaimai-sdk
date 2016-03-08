@@ -36,4 +36,14 @@ public interface OrderService extends BdWmService {
      */
     void complete(String orderId) throws BdWmErrorException;
 
+    /**
+     * <pre>
+     *
+     * </pre>
+     * @param orderId
+     * @return
+     * @throws BdWmErrorException
+     */
+    int getStatus(String orderId) throws BdWmErrorException;
+
 }

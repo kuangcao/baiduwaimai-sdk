@@ -69,7 +69,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         categoryGet.setName(name);
         categoryGet.setShop_id(shopId);
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_GET, categoryGet);
-        Category category = doPost(cmd).getObject("data", Category.class);
+        Category category = doPost(cmd).getObject(DATA, Category.class);
         category.setShop_id(shopId);
         return category;
     }

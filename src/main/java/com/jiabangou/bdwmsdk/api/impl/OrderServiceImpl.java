@@ -41,4 +41,13 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         doPost(cmd);
     }
 
+    @Override
+    public int getStatus(String orderId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        bodyMap.put("order_id", orderId);
+        Cmd cmd = createCmd(ORDER_COMPLETE, bodyMap);
+        return doPost(cmd).getJSONObject(DATA).getIntValue("status");
+    }
+
+
 }
