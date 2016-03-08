@@ -6,6 +6,7 @@ import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
+import com.jiabangou.bdwmsdk.model.OrderDetail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,10 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     public static final String ORDER_CONFIRM = "order.confirm";
     public static final String ORDER_CANCEL = "order.cancel";
     public static final String ORDER_COMPLETE = "order.complete";
+    public static final String ORDER_STATUS_GET = "order.status.get";
+
+    public static final String ORDER_GET = "order.get";
+
     @Override
     public void confirm(String orderId) throws BdWmErrorException {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
@@ -45,9 +50,18 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     public int getStatus(String orderId) throws BdWmErrorException {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("order_id", orderId);
-        Cmd cmd = createCmd(ORDER_COMPLETE, bodyMap);
+        Cmd cmd = createCmd(ORDER_STATUS_GET, bodyMap);
         return doPost(cmd).getJSONObject(DATA).getIntValue("status");
     }
 
+    @Override
+    public OrderDetail getOrderDetail(String orderId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        bodyMap.put("order_id", orderId);
+        Cmd cmd = createCmd(ORDER_GET, bodyMap);
+        return doPost(cmd).getObject(DATA, OrderDetail.class);
+    }
+
+    
 
 }
