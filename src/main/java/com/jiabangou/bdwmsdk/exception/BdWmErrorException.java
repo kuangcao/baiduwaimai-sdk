@@ -20,11 +20,6 @@ public class BdWmErrorException extends Exception {
         this.code = error.getErrorCode();
     }
 
-    public BdWmErrorException(int code) {
-        super(ErrorCode.getMsg(code));
-        this.code = code;
-    }
-
     public int getCode() {
         return code;
     }
