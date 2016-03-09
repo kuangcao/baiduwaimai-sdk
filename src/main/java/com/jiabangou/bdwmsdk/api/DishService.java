@@ -2,7 +2,8 @@ package com.jiabangou.bdwmsdk.api;
 
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 
 public interface DishService extends BdWmService {
 

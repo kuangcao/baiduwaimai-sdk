@@ -7,7 +7,9 @@ import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.DishService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
-import com.sun.tools.javac.util.List;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,7 +82,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_ALL, bodyMap);
         JSONArray objects = (JSONArray)doPost(cmd).getJSONArray(DATA);
-        List<Category> categories = List.nil();
+        List<Category> categories = new ArrayList<Category>();
         for (Object object: objects){
             Category category = JSON.parseObject(JSON.toJSONString(object), Category.class);
             categories.add(category);
@@ -103,8 +105,8 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public void online(String shopId, String dishId) throws BdWmErrorException {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
-        bodyMap.put("shop_id", shopId);
         bodyMap.put("dish_id", dishId);
+        bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_ONLINE, bodyMap);
         doPost(cmd);
     }
@@ -112,8 +114,8 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public void offline(String shopId, String dishId) throws BdWmErrorException {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
-        bodyMap.put("shop_id", shopId);
         bodyMap.put("dish_id", dishId);
+        bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_OFFLINE, bodyMap);
         doPost(cmd);
     }
@@ -121,8 +123,8 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public void delete(String shopId, String dishId) throws BdWmErrorException {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
-        bodyMap.put("shop_id", shopId);
         bodyMap.put("dish_id", dishId);
+        bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_DELETE, bodyMap);
         doPost(cmd);
     }
@@ -130,8 +132,8 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public void setThreshold(String shopId, String dishId, List<Threshold> thresholds) throws BdWmErrorException {
         Map<String, Object> bodyMap = new HashMap<String, Object>(1);
-        bodyMap.put("shop_id", shopId);
         bodyMap.put("dish_id", dishId);
+        bodyMap.put("shop_id", shopId);
         bodyMap.put("threshold", thresholds);
         Cmd cmd = createCmd(COMMAND_DISH_THRESHOLD_SET, bodyMap);
         doPost(cmd);

@@ -6,7 +6,7 @@ import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
 import com.jiabangou.bdwmsdk.model.Shop;
 import com.jiabangou.bdwmsdk.model.Threshold;
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 import java.util.HashMap;
 import java.util.Map;
