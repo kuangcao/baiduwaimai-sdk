@@ -3,22 +3,22 @@ package com.jiabangou.bdwmsdk.model;
 import java.io.Serializable;
 
 public class Coord implements Serializable {
-    private double longitude;
-    private double latitude;
+    private String longitude;
+    private String latitude;
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
@@ -29,19 +29,15 @@ public class Coord implements Serializable {
 
         Coord coord = (Coord) o;
 
-        if (Double.compare(coord.longitude, longitude) != 0) return false;
-        return Double.compare(coord.latitude, latitude) == 0;
+        if (longitude != null ? !longitude.equals(coord.longitude) : coord.longitude != null) return false;
+        return latitude != null ? latitude.equals(coord.latitude) : coord.latitude == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(longitude);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(latitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = longitude != null ? longitude.hashCode() : 0;
+        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         return result;
     }
 
