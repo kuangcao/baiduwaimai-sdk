@@ -56,16 +56,16 @@ public class Shop implements Serializable {
     private List<BussinessTime> business_time;
 
     //提前下单时间，单位分钟，预留字段暂不生效(不必填)
-    private int book_ahead_time;
+    private Integer book_ahead_time;
 
     //是否可以提供发票，1：是 2：否
-    private int invoice_support;
+    private Integer invoice_support;
 
     //外卖起送价，单位：分
-    private int min_order_price;
+    private Integer min_order_price;
 
     //餐盒费，单位：分
-    private int package_box_price;
+    private Integer package_box_price;
 
     //订单阈值设置(固定时间自动设置库存)（不必填）
     private List<Threshold> threshold;
@@ -201,35 +201,35 @@ public class Shop implements Serializable {
         this.business_time = business_time;
     }
 
-    public int getBook_ahead_time() {
+    public Integer getBook_ahead_time() {
         return book_ahead_time;
     }
 
-    public void setBook_ahead_time(int book_ahead_time) {
+    public void setBook_ahead_time(Integer book_ahead_time) {
         this.book_ahead_time = book_ahead_time;
     }
 
-    public int getInvoice_support() {
+    public Integer getInvoice_support() {
         return invoice_support;
     }
 
-    public void setInvoice_support(int invoice_support) {
+    public void setInvoice_support(Integer invoice_support) {
         this.invoice_support = invoice_support;
     }
 
-    public int getMin_order_price() {
+    public Integer getMin_order_price() {
         return min_order_price;
     }
 
-    public void setMin_order_price(int min_order_price) {
+    public void setMin_order_price(Integer min_order_price) {
         this.min_order_price = min_order_price;
     }
 
-    public int getPackage_box_price() {
+    public Integer getPackage_box_price() {
         return package_box_price;
     }
 
-    public void setPackage_box_price(int package_box_price) {
+    public void setPackage_box_price(Integer package_box_price) {
         this.package_box_price = package_box_price;
     }
 
@@ -256,10 +256,6 @@ public class Shop implements Serializable {
 
         Shop shop = (Shop) o;
 
-        if (book_ahead_time != shop.book_ahead_time) return false;
-        if (invoice_support != shop.invoice_support) return false;
-        if (min_order_price != shop.min_order_price) return false;
-        if (package_box_price != shop.package_box_price) return false;
         if (shop_id != null ? !shop_id.equals(shop.shop_id) : shop.shop_id != null) return false;
         if (name != null ? !name.equals(shop.name) : shop.name != null) return false;
         if (shop_logo != null ? !shop_logo.equals(shop.shop_logo) : shop.shop_logo != null) return false;
@@ -278,6 +274,14 @@ public class Shop implements Serializable {
         if (delivery_region != null ? !delivery_region.equals(shop.delivery_region) : shop.delivery_region != null)
             return false;
         if (business_time != null ? !business_time.equals(shop.business_time) : shop.business_time != null)
+            return false;
+        if (book_ahead_time != null ? !book_ahead_time.equals(shop.book_ahead_time) : shop.book_ahead_time != null)
+            return false;
+        if (invoice_support != null ? !invoice_support.equals(shop.invoice_support) : shop.invoice_support != null)
+            return false;
+        if (min_order_price != null ? !min_order_price.equals(shop.min_order_price) : shop.min_order_price != null)
+            return false;
+        if (package_box_price != null ? !package_box_price.equals(shop.package_box_price) : shop.package_box_price != null)
             return false;
         if (threshold != null ? !threshold.equals(shop.threshold) : shop.threshold != null) return false;
         return shopCode != null ? shopCode.equals(shop.shopCode) : shop.shopCode == null;
@@ -302,10 +306,10 @@ public class Shop implements Serializable {
         result = 31 * result + (coord_type != null ? coord_type.hashCode() : 0);
         result = 31 * result + (delivery_region != null ? delivery_region.hashCode() : 0);
         result = 31 * result + (business_time != null ? business_time.hashCode() : 0);
-        result = 31 * result + book_ahead_time;
-        result = 31 * result + invoice_support;
-        result = 31 * result + min_order_price;
-        result = 31 * result + package_box_price;
+        result = 31 * result + (book_ahead_time != null ? book_ahead_time.hashCode() : 0);
+        result = 31 * result + (invoice_support != null ? invoice_support.hashCode() : 0);
+        result = 31 * result + (min_order_price != null ? min_order_price.hashCode() : 0);
+        result = 31 * result + (package_box_price != null ? package_box_price.hashCode() : 0);
         result = 31 * result + (threshold != null ? threshold.hashCode() : 0);
         result = 31 * result + (shopCode != null ? shopCode.hashCode() : 0);
         return result;

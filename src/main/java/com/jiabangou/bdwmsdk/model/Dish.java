@@ -22,16 +22,16 @@ public class Dish implements Serializable {
     private String upc;
 
     //菜品价格，单位：分
-    private int price;
+    private Integer price;
 
     //菜品图片(不必填)
     private String pic;
 
     //最小起订份数
-    private int min_order_num;
+    private Integer min_order_num;
 
     //单份所需餐盒数
-    private int package_box_num;
+    private Integer package_box_num;
 
     //描述（不必填）
     private String description;
@@ -83,11 +83,11 @@ public class Dish implements Serializable {
         this.upc = upc;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -99,19 +99,19 @@ public class Dish implements Serializable {
         this.pic = pic;
     }
 
-    public int getMin_order_num() {
+    public Integer getMin_order_num() {
         return min_order_num;
     }
 
-    public void setMin_order_num(int min_order_num) {
+    public void setMin_order_num(Integer min_order_num) {
         this.min_order_num = min_order_num;
     }
 
-    public int getPackage_box_num() {
+    public Integer getPackage_box_num() {
         return package_box_num;
     }
 
-    public void setPackage_box_num(int package_box_num) {
+    public void setPackage_box_num(Integer package_box_num) {
         this.package_box_num = package_box_num;
     }
 
@@ -170,14 +170,16 @@ public class Dish implements Serializable {
 
         Dish dish = (Dish) o;
 
-        if (price != dish.price) return false;
-        if (min_order_num != dish.min_order_num) return false;
-        if (package_box_num != dish.package_box_num) return false;
         if (shop_id != null ? !shop_id.equals(dish.shop_id) : dish.shop_id != null) return false;
         if (name != null ? !name.equals(dish.name) : dish.name != null) return false;
         if (dish_id != null ? !dish_id.equals(dish.dish_id) : dish.dish_id != null) return false;
         if (upc != null ? !upc.equals(dish.upc) : dish.upc != null) return false;
+        if (price != null ? !price.equals(dish.price) : dish.price != null) return false;
         if (pic != null ? !pic.equals(dish.pic) : dish.pic != null) return false;
+        if (min_order_num != null ? !min_order_num.equals(dish.min_order_num) : dish.min_order_num != null)
+            return false;
+        if (package_box_num != null ? !package_box_num.equals(dish.package_box_num) : dish.package_box_num != null)
+            return false;
         if (description != null ? !description.equals(dish.description) : dish.description != null) return false;
         if (available_times != null ? !available_times.equals(dish.available_times) : dish.available_times != null)
             return false;
@@ -194,10 +196,10 @@ public class Dish implements Serializable {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (dish_id != null ? dish_id.hashCode() : 0);
         result = 31 * result + (upc != null ? upc.hashCode() : 0);
-        result = 31 * result + price;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (pic != null ? pic.hashCode() : 0);
-        result = 31 * result + min_order_num;
-        result = 31 * result + package_box_num;
+        result = 31 * result + (min_order_num != null ? min_order_num.hashCode() : 0);
+        result = 31 * result + (package_box_num != null ? package_box_num.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (available_times != null ? available_times.hashCode() : 0);
         result = 31 * result + (threshold != null ? threshold.hashCode() : 0);

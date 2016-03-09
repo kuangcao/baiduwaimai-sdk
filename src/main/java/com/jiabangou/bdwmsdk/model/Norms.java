@@ -16,7 +16,7 @@ public class Norms implements Serializable {
     private String value;
 
     //价格，单位：分
-    private int price;
+    private Integer price;
 
     //菜品库存设置，每天固定时间，设置库存数量(不必填)
     private List<Threshold> threshold;
@@ -37,11 +37,11 @@ public class Norms implements Serializable {
         this.value = value;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -60,9 +60,9 @@ public class Norms implements Serializable {
 
         Norms norms = (Norms) o;
 
-        if (price != norms.price) return false;
         if (name != null ? !name.equals(norms.name) : norms.name != null) return false;
         if (value != null ? !value.equals(norms.value) : norms.value != null) return false;
+        if (price != null ? !price.equals(norms.price) : norms.price != null) return false;
         return threshold != null ? threshold.equals(norms.threshold) : norms.threshold == null;
 
     }
@@ -71,7 +71,7 @@ public class Norms implements Serializable {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (value != null ? value.hashCode() : 0);
-        result = 31 * result + price;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (threshold != null ? threshold.hashCode() : 0);
         return result;
     }

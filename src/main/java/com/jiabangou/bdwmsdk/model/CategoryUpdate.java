@@ -12,7 +12,7 @@ public class CategoryUpdate implements Serializable {
     private String name;
 
     //降序排序，大于0
-    private int rank;
+    private Integer rank;
 
     public String getOld_name() {
         return old_name;
@@ -38,11 +38,11 @@ public class CategoryUpdate implements Serializable {
         this.name = name;
     }
 
-    public int getRank() {
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 
@@ -53,10 +53,10 @@ public class CategoryUpdate implements Serializable {
 
         CategoryUpdate that = (CategoryUpdate) o;
 
-        if (rank != that.rank) return false;
         if (shop_id != null ? !shop_id.equals(that.shop_id) : that.shop_id != null) return false;
         if (old_name != null ? !old_name.equals(that.old_name) : that.old_name != null) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return rank != null ? rank.equals(that.rank) : that.rank == null;
 
     }
 
@@ -65,7 +65,7 @@ public class CategoryUpdate implements Serializable {
         int result = shop_id != null ? shop_id.hashCode() : 0;
         result = 31 * result + (old_name != null ? old_name.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + rank;
+        result = 31 * result + (rank != null ? rank.hashCode() : 0);
         return result;
     }
 

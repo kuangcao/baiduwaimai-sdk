@@ -11,7 +11,7 @@ public class Category implements Serializable {
     private String name;
 
     //降序排序，大于0
-    private int rank;
+    private Integer rank;
 
     public String getShop_id() {
         return shop_id;
@@ -29,11 +29,11 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public int getRank() {
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 
@@ -44,9 +44,9 @@ public class Category implements Serializable {
 
         Category category = (Category) o;
 
-        if (rank != category.rank) return false;
         if (shop_id != null ? !shop_id.equals(category.shop_id) : category.shop_id != null) return false;
-        return name != null ? name.equals(category.name) : category.name == null;
+        if (name != null ? !name.equals(category.name) : category.name != null) return false;
+        return rank != null ? rank.equals(category.rank) : category.rank == null;
 
     }
 
@@ -54,7 +54,7 @@ public class Category implements Serializable {
     public int hashCode() {
         int result = shop_id != null ? shop_id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + rank;
+        result = 31 * result + (rank != null ? rank.hashCode() : 0);
         return result;
     }
 

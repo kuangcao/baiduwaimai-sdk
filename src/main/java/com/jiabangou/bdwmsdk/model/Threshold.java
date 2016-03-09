@@ -8,16 +8,16 @@ import java.io.Serializable;
 public class Threshold implements Serializable {
 
     //初始化值
-    private int num;
+    private Integer num;
 
     //初始化时间 "time": "0|9|*"
     private String time;
 
-    public int getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 
@@ -36,14 +36,14 @@ public class Threshold implements Serializable {
 
         Threshold threshold = (Threshold) o;
 
-        if (num != threshold.num) return false;
+        if (num != null ? !num.equals(threshold.num) : threshold.num != null) return false;
         return time != null ? time.equals(threshold.time) : threshold.time == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = num;
+        int result = num != null ? num.hashCode() : 0;
         result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
