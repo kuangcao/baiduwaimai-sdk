@@ -8,10 +8,7 @@ import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OrderServiceImpl extends BdWmBaseService implements OrderService {
 
@@ -38,7 +35,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
 
     @Override
     public void cancel(String orderId, int type, String reason) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new HashMap<String, Object>(1);
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("order_id", orderId);
         bodyMap.put("reason", reason);
         bodyMap.put("type", type);
@@ -72,7 +69,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
 
     @Override
     public Page<OrderLite> getOrderLites(long startTime, long endTime) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new HashMap<String, Object>(1);
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("end_time", endTime);
         bodyMap.put("start_time", startTime);
         Cmd cmd = createCmd(ORDER_LIST, bodyMap);

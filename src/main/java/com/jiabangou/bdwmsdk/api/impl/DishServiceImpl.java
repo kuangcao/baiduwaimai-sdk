@@ -8,11 +8,7 @@ import com.jiabangou.bdwmsdk.api.DishService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DishServiceImpl extends BdWmBaseService implements DishService {
 
@@ -104,7 +100,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
 
     @Override
     public void online(String shopId, String dishId) throws BdWmErrorException {
-        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        Map<String, String> bodyMap = new LinkedHashMap<String, String>(1);
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_ONLINE, bodyMap);
@@ -113,7 +109,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
 
     @Override
     public void offline(String shopId, String dishId) throws BdWmErrorException {
-        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        Map<String, String> bodyMap = new LinkedHashMap<String, String>(1);
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_OFFLINE, bodyMap);
@@ -122,7 +118,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
 
     @Override
     public void delete(String shopId, String dishId) throws BdWmErrorException {
-        Map<String, String> bodyMap = new HashMap<String, String>(1);
+        Map<String, String> bodyMap = new LinkedHashMap<String, String>(1);
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_DELETE, bodyMap);
@@ -131,7 +127,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
 
     @Override
     public void setThreshold(String shopId, String dishId, List<Threshold> thresholds) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new HashMap<String, Object>(1);
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         bodyMap.put("threshold", thresholds);

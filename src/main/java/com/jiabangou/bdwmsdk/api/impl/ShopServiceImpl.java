@@ -6,9 +6,10 @@ import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
 import com.jiabangou.bdwmsdk.model.Shop;
 import com.jiabangou.bdwmsdk.model.Threshold;
-import java.util.List;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShopServiceImpl extends BdWmBaseService implements ShopService {
@@ -73,7 +74,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
 
     @Override
     public void setThreshold(String shopId, List<Threshold> thresholds) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new HashMap<String, Object>(1);
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("shop_id", shopId);
         bodyMap.put("threshold", thresholds);
         Cmd cmd = createCmd(COMMAND_THRESHOLD_SET, bodyMap);
@@ -82,9 +83,9 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
 
     @Override
     public void setDeliverDelayTime(String shopId, int deliveryDelayTime) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new HashMap<String, Object>(1);
-        bodyMap.put("shop_id", shopId);
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("delivery_delay_time", deliveryDelayTime);
+        bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DELIVERY_DELAY, bodyMap);
         doPost(cmd);
     }
