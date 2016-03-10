@@ -1,10 +1,12 @@
 package com.jiabangou.bdwmsdk.api;
 
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
+import com.jiabangou.bdwmsdk.model.BdWmError;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
 import com.jiabangou.bdwmsdk.model.OrderLite;
 import com.jiabangou.bdwmsdk.model.Page;
-import com.jiabangou.bdwmsdk.model.OrderStatus;
+
+import java.util.Map;
 
 public interface OrderService extends BdWmService {
 
@@ -69,33 +71,84 @@ public interface OrderService extends BdWmService {
      * 提供给合作方查看订单列表所用。
      * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_list
      * </pre>
-     * @param orderId 订单id
-     * @return
+     * @param startTime 开始时间(时间是10的时间戳)
+     * @param endTime 结束时间(时间是10的时间戳)
+     * @return 订单列表
      * @throws BdWmErrorException
      */
-    Page<OrderLite> getOrderLites(String orderId) throws BdWmErrorException;
-
-    /**
-     * 订单下行接口，创建订单
-     * 提供给合作方查看订单详情所用。
-     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_create
-     * </pre>
-     * @param order 订单信息
-     * @return 合作方订单id
-     * @throws BdWmErrorException
-     */
-    long create(OrderDetail order) throws BdWmErrorException;
+    Page<OrderLite> getOrderLites(long startTime, long endTime) throws BdWmErrorException;
 
     /**
      * <pre>
-     * 订单下行接口，更新订单状态
-     * 提供给合作方更新订单状态所用
+     * 订单下行接口，获取创建订单请求数据的对象
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_create
+     * </pre>
+     * @param json 请求的json数据
+     * @return 订单详情对象
+     */
+    OrderDetail getOrderDetailReq(String json);
+
+    /**
+     * <pre>
+     * 订单下行接口，获取创建订单响应数据
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_create
+     * </pre>
+     * @param json 请求的json数据
+     * @return 订单创建的响应json数据
+     */
+    String getOrderCreateResp(String sourceOrderId, String json);
+
+    /**
+     * <pre>
+     * 订单下行接口，获取百度外卖执行“获取合作方订单状态”操作的参数
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_status_get
+     * </pre>
+     * @param json 请求的json数据
+     * @return order_id
+     */
+    String getOrderStatusGetReq(String json);
+
+    /**
+     * <pre>
+     * 订单下行接口，获取百度外卖执行“获取合作方订单状态”操作的响应json数据
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_status_get
+     * </pre>
+     * @param json 请求的json数据
+     * @param sourceOrderId 合作方订单id
+     * @param status 订单状态
+     * @return 响应json数据
+     */
+    String getOrderStatusGetResp(String sourceOrderId, int status, String json);
+
+    /**
+     * <pre>
+     * 订单下行接口，获取百度外卖执行“推送订单状态”操作的请求参数
      * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_status_push
      * </pre>
-     * @param orderId 订单id
-     * @param status 订单状态
-     * @throws BdWmErrorException
+     * @param json 请求的json数据
+     * @return 请求的参数（order_id， status）
      */
-    void pushStatus(String orderId, OrderStatus status) throws BdWmErrorException;
+    Map<String, Object> getOrderStatusPushReq(String json);
+
+    /**
+     * <pre>
+     * 订单下行接口，获取百度外卖执行“推送订单状态”操作的响应数据
+     * 参考: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_status_push
+     * </pre>
+     * @param json 请求的json数据
+     * @return 响应json数据
+     */
+    String getOrderStatusPushResp(String json);
+
+
+    /**
+     * <pre>
+     * 订单下行接口，获取百度外卖出错响应数据
+     * </pre>
+     * @param command 出错的操作命令
+     * @param error 百度外卖error对象
+     * @return 响应json数据
+     */
+    String getErrorResp(String command, BdWmError error);
 
 }
