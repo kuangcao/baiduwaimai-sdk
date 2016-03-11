@@ -44,8 +44,8 @@ public class BdWmBaseService implements BdWmService {
     }
 
     @Override
-    public void setBdWmConfigStorage(BdWmConfigStorage baiduWaimaiConfigStorage) {
-        this.bdWmConfigStorage = baiduWaimaiConfigStorage;
+    public void setBdWmConfigStorage(BdWmConfigStorage bdWmConfigStorage) {
+        this.bdWmConfigStorage = bdWmConfigStorage;
     }
 
     @Override

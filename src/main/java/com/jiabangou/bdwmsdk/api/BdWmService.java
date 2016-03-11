@@ -5,7 +5,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 public interface BdWmService {
 
-    void setBdWmConfigStorage(BdWmConfigStorage baiduWaimaiConfigStorage);
+    void setBdWmConfigStorage(BdWmConfigStorage bdWmConfigStorage);
 
     void setHttpClient(CloseableHttpClient httpClient);
 
