@@ -121,12 +121,12 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     @Override
     //获取百度外卖创建订单的响应json字符串
     public Cmd getOrderCreateResp(String sourceOrderId) {
-        Map<String, String> data = new HashMap<String, String>();
+        Map<String, String> data = new LinkedHashMap<String, String>();
         data.put("source_order_id", sourceOrderId);
-        Map<String, Object> body = new HashMap<String, Object>();
+        Map<String, Object> body = new LinkedHashMap<String, Object>();
+        body.put("data", data);
         body.put("errno", 0);
         body.put("error", "success");
-        body.put("data", data);
         return createCmd(RESP_ORDER_CREATE, body);
     }
 
@@ -140,13 +140,13 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     @Override
     //获取百度外卖get订单状态的响应json字符串
     public Cmd getOrderStatusGetResp(String sourceOrderId, int status) {
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new LinkedHashMap<String, Object>();
         data.put("source_order_id", sourceOrderId);
         data.put("status", status);
-        Map<String, Object> body = new HashMap<String, Object>();
+        Map<String, Object> body = new LinkedHashMap<String, Object>();
+        body.put("data", data);
         body.put("errno", 0);
         body.put("error", "success");
-        body.put("data", data);
         return createCmd(RESP_ORDER_STATUS_GET, body);
     }
 
@@ -163,7 +163,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     @Override
     //获取百度外卖订单状态推送的响应json字符串
     public Cmd getOrderStatusPushResp() {
-        Map<String, Object> body = new HashMap<String, Object>();
+        Map<String, Object> body = new LinkedHashMap<String, Object>();
         body.put("errno", 0);
         body.put("error", "success");
         return createCmd(RESP_ORDER_STATUS_PUSH, body);
@@ -172,7 +172,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     @Override
     //获取百度外卖发情求出错是的响应json字符串
     public Cmd getErrorResp(String command, BdWmError error) {
-        Map<String, Object> body = new HashMap<String, Object>();
+        Map<String, Object> body = new LinkedHashMap<String, Object>();
         body.put("errno", error.getErrorCode());
         body.put("error", error.getErrorMsg());
         return createCmd(command, body);
