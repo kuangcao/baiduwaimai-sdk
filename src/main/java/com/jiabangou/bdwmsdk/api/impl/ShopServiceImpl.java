@@ -4,6 +4,7 @@ import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.ShopService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
+import com.jiabangou.bdwmsdk.model.Picture;
 import com.jiabangou.bdwmsdk.model.Shop;
 import com.jiabangou.bdwmsdk.model.Threshold;
 
@@ -35,6 +36,9 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
 
     //商户配送时延设置
     public final static String COMMAND_DELIVERY_DELAY = "shop.delivery.delay";
+
+    //上传资质图片
+    public final static String COMMAND_UPLOAD_PIC = "shop.pic.upload";
 
     @Override
     public int create(Shop shop) throws BdWmErrorException {
@@ -88,6 +92,15 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DELIVERY_DELAY, bodyMap);
         doPost(cmd);
+    }
+
+    @Override
+    public boolean uploadIdentityPicture(String shopId, List<Picture> pictures) throws BdWmErrorException {
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
+        bodyMap.put("pic", pictures);
+        bodyMap.put("shop_id", shopId);
+        Cmd cmd = createCmd(COMMAND_UPLOAD_PIC, bodyMap);
+        return doPost(cmd).getBoolean(DATA);
     }
 
 }
