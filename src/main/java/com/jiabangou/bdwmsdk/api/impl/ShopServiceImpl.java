@@ -43,7 +43,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
     @Override
     public int create(Shop shop) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_SHOP_CREATE, shop);
-        return doPost(cmd).getIntValue(DATA);
+        return doPost(cmd).getJSONObject(DATA).getIntValue("baidu_shop_id");
     }
 
     @Override
