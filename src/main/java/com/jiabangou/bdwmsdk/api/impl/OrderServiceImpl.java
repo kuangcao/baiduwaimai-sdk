@@ -3,6 +3,7 @@ package com.jiabangou.bdwmsdk.api.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
@@ -73,7 +74,8 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         bodyMap.put("end_time", endTime);
         bodyMap.put("start_time", startTime);
         Cmd cmd = createCmd(ORDER_LIST, bodyMap);
-        return (Page<OrderLite>) doPost(cmd).getObject(DATA, PageOrderLite.class);
+        JSONObject jsonObject = doPost(cmd).getJSONObject(DATA);
+        return JSON.parseObject(jsonObject.toJSONString(), new TypeReference<Page<OrderLite>>(){});
     }
 
     /**
