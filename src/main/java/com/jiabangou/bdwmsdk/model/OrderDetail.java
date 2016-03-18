@@ -8,7 +8,7 @@ public class OrderDetail implements Serializable {
 
     private String source;
     private Order order;
-    private Shop shop;
+    private ShopLite shop;
     private User user;
     private List<Discount> discount;
     private List<Product> products;
@@ -21,11 +21,11 @@ public class OrderDetail implements Serializable {
         this.source = source;
     }
 
-    public Shop getShop() {
+    public ShopLite getShopLite() {
         return shop;
     }
 
-    public void setShop(Shop shop) {
+    public void setShopLite(ShopLite shop) {
         this.shop = shop;
     }
 

@@ -87,7 +87,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
             jsonObject = JSON.parseObject(json).getJSONObject(DATA);
         }
         //构建商户基本信息类
-        Shop shop = jsonObject.getObject("shop", Shop.class);
+        ShopLite shop = jsonObject.getObject("shop", ShopLite.class);
         //构建订单基本信息类
         Order order = jsonObject.getObject("order", Order.class);
         //构建用户信息类
@@ -110,7 +110,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         }
         //构建订单详情类
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setShop(shop);
+        orderDetail.setShopLite(shop);
         orderDetail.setOrder(order);
         orderDetail.setUser(user);
         orderDetail.setProducts(products);
