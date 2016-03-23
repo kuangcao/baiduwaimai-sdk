@@ -112,7 +112,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         }
         //构建订单详情类
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setShopLite(shop);
+        orderDetail.setShop(shop);
         orderDetail.setOrder(order);
         orderDetail.setUser(user);
         orderDetail.setProducts(products);

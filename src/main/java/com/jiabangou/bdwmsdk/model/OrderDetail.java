@@ -1,8 +1,7 @@
 package com.jiabangou.bdwmsdk.model;
 
-import java.util.List;
-
 import java.io.Serializable;
+import java.util.List;
 
 public class OrderDetail implements Serializable {
 
@@ -21,20 +20,20 @@ public class OrderDetail implements Serializable {
         this.source = source;
     }
 
-    public ShopLite getShopLite() {
-        return shop;
-    }
-
-    public void setShopLite(ShopLite shop) {
-        this.shop = shop;
-    }
-
     public Order getOrder() {
         return order;
     }
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public ShopLite getShop() {
+        return shop;
+    }
+
+    public void setShop(ShopLite shop) {
+        this.shop = shop;
     }
 
     public User getUser() {
