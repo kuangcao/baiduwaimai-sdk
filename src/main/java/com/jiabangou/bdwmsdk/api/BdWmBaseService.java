@@ -15,12 +15,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.UUID;
 
 public class BdWmBaseService implements BdWmService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BdWmBaseService.class);
 
     public static final String DATA = "data";
     public static final String API_URL = "http://api.waimai.baidu.com";
@@ -85,11 +89,17 @@ public class BdWmBaseService implements BdWmService {
                 RequestConfig config = RequestConfig.custom().setProxy(httpProxy).build();
                 httpPost.setConfig(config);
             }
-            httpPost.setEntity(new StringEntity(JSON.toJSONString(cmd, SerializerFeature.SortField),
+            String requestString = JSON.toJSONString(cmd, SerializerFeature.SortField);
+            httpPost.setEntity(new StringEntity(requestString,
                     Charset.forName("utf-8")));
             CloseableHttpResponse response = this.httpClient.execute(httpPost);
             String resultContent = new BasicResponseHandler().handleResponse(response);
-
+            if (LOGGER.isInfoEnabled()) {
+                StringBuilder stringBuilder = new StringBuilder("cmd:").append(cmd.toString()).append("\r\n")
+                        .append("req:").append(requestString).append("\r\n")
+                        .append("resp:").append(resultContent);
+                LOGGER.info(stringBuilder.toString());
+            }
             JSONObject jsonObject = JSON.parseObject(resultContent);
             BdWmError error = BdWmError.fromJson(jsonObject);
             if (error != null) {
