@@ -49,7 +49,6 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     //菜品批量替换
     public static final String COMMAND_DISH_REPLACE_BATCH = "dish.replace.batch";
 
-
     @Override
     public long createCategory(Category category) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_CREATE, category);
@@ -139,6 +138,19 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     public void replaceBatch(DishReplaceBatch dishReplaceBatch) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_REPLACE_BATCH, dishReplaceBatch);
         doPost(cmd);
+    }
+
+    @Override
+    public List<DishProduct> gets(String shopId) throws BdWmErrorException {
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
+        bodyMap.put("shop_id", shopId);
+        Cmd cmd = createCmd(COMMAND_DISH_SHOW, bodyMap);
+        JSONArray array = doPost(cmd).getJSONArray(DATA);
+        List<DishProduct> dishes = new ArrayList<DishProduct>();
+        for (Object object: array){
+            dishes.add(JSON.parseObject(JSON.toJSONString(object), DishProduct.class));
+        }
+        return dishes;
     }
 
 }

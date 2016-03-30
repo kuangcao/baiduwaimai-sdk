@@ -1,9 +1,8 @@
 package com.jiabangou.bdwmsdk.api;
 
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
-import com.jiabangou.bdwmsdk.model.Picture;
-import com.jiabangou.bdwmsdk.model.Shop;
-import com.jiabangou.bdwmsdk.model.Threshold;
+import com.jiabangou.bdwmsdk.model.*;
+
 import java.util.List;
 
 public interface ShopService extends BdWmService {
@@ -90,4 +89,34 @@ public interface ShopService extends BdWmService {
      * @throws BdWmErrorException
      */
     boolean uploadIdentityPicture(String shopId, List<Picture> pictures) throws BdWmErrorException;
+
+    /**
+     * <pre>
+     * 获取商户详情
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_shop_get
+     * </pre>
+     * @param shopId 商户id
+     * @return 商户详情对象
+     * @throws BdWmErrorException
+     */
+    ShopDetail getDetail(String shopId) throws BdWmErrorException;
+
+    /**
+     * <pre>
+     * 获取商户列表
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_shop_list
+     * </pre>
+     * @return 商户对象列表
+     * @throws BdWmErrorException
+     */
+    List<ShopDetailLite> gets() throws BdWmErrorException;
+
+    /**
+     * <pre>
+     * 设置商户公告
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_shop_announcement_set
+     * </pre>
+     * @throws BdWmErrorException
+     */
+    void setAnnouncement(String shopId, String content) throws BdWmErrorException;
 }

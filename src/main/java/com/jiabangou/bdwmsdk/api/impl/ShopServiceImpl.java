@@ -1,17 +1,13 @@
 package com.jiabangou.bdwmsdk.api.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.jiabangou.bdwmsdk.api.BdWmBaseService;
 import com.jiabangou.bdwmsdk.api.ShopService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
-import com.jiabangou.bdwmsdk.model.Cmd;
-import com.jiabangou.bdwmsdk.model.Picture;
-import com.jiabangou.bdwmsdk.model.Shop;
-import com.jiabangou.bdwmsdk.model.Threshold;
+import com.jiabangou.bdwmsdk.model.*;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShopServiceImpl extends BdWmBaseService implements ShopService {
 
@@ -39,6 +35,15 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
 
     //上传资质图片
     public final static String COMMAND_UPLOAD_PIC = "shop.pic.upload";
+
+    //获取商户信息
+    public final static String COMMAND_SHOP_GET = "shop.get";
+
+    //获取商户列表
+    public final static String COMMAND_SHOP_LIST = "shop.list";
+
+    //商户公告设置
+    public final static String COMMAND_SHOP_ANNOUNCEMENT_SET = "shop.announcement.set";
 
     @Override
     public int create(Shop shop) throws BdWmErrorException {
@@ -101,6 +106,34 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_UPLOAD_PIC, bodyMap);
         return doPost(cmd).getBoolean(DATA);
+    }
+
+    @Override
+    public ShopDetail getDetail(String shopId) throws BdWmErrorException {
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
+        bodyMap.put("shop_id", shopId);
+        Cmd cmd = createCmd(COMMAND_SHOP_GET, bodyMap);
+        return doPost(cmd).getObject(DATA, ShopDetail.class);
+    }
+
+    @Override
+    public List<ShopDetailLite> gets() throws BdWmErrorException {
+        Cmd cmd = createCmd(COMMAND_SHOP_LIST, "");
+        JSONArray array = doPost(cmd).getJSONArray(DATA);
+        List<ShopDetailLite> shops = new ArrayList<ShopDetailLite>();
+        for (Object object: array){
+            shops.add(JSON.parseObject(JSON.toJSONString(object), ShopDetailLite.class));
+        }
+        return shops;
+    }
+
+    @Override
+    public void setAnnouncement(String shopId, String content) throws BdWmErrorException {
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
+        bodyMap.put("content", content);
+        bodyMap.put("shop_id", shopId);
+        Cmd cmd = createCmd(COMMAND_SHOP_ANNOUNCEMENT_SET, bodyMap);
+        doPost(cmd);
     }
 
 }

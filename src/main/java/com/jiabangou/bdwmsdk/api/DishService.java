@@ -126,4 +126,14 @@ public interface DishService extends BdWmService {
      */
     void replaceBatch(DishReplaceBatch dishReplaceBatch) throws BdWmErrorException;
 
+    /**
+     * <pre>
+     * 获取商户菜品列表
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_show
+     * </pre>
+     * @param shopId 商户id
+     * @throws BdWmErrorException
+     */
+    List<DishProduct> gets(String shopId) throws BdWmErrorException;
+
 }
