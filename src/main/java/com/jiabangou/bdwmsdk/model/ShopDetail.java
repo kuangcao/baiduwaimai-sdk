@@ -8,7 +8,7 @@ public class ShopDetail extends Shop {
     //合作方商户唯一 ID
     private String baidu_shop_id;
 
-    //商户状态,'1'为营业中，'5'为歇业，'9'为下线
+    //商户状态,'1'为营业中，'3'为歇业，'9'为下线
     private String status;
 
     public String getBaidu_shop_id() {

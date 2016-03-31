@@ -16,7 +16,7 @@ public class ShopDetailLite implements Serializable {
     //商户名称
     private String name;
 
-    //商户状态,'1'为营业中，'3'休息中，'5'为歇业，'9'为下线
+    //商户状态,'1'为营业中，'3'为歇业，'9'为下线
     private String status;
 
     public String getShop_id() {
