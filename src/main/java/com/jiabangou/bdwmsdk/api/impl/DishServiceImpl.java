@@ -20,7 +20,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     public static final String COMMAND_DISH_CATEGORY_UPDATE = "dish.category.update";
 
     //查看单个菜品分类
-    public static final String COMMAND_DISH_CATEGORY_GET = "dish.category.one";
+    public static final String COMMAND_DISH_CATEGORY_GET = "dish.category.get";
 
     //查看所有菜品分类
     public static final String COMMAND_DISH_CATEGORY_ALL = "dish.category.all";
