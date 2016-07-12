@@ -38,6 +38,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java_src_version>1.8</java_src_version>
         <downloadJavadocs>true</downloadJavadocs>
         <downloadSources>true</downloadSources>
         <httpclient.version>4.3.6</httpclient.version>
@@ -50,6 +51,29 @@
         <commons.lang.version>2.6</commons.lang.version>
     </properties>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- compiler plugin -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.0.2</version>
+                    <configuration>
+                        <compilerArgument>-parameters</compilerArgument>
+                        <source>${java_src_version}</source>
+                        <target>${java_src_version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
