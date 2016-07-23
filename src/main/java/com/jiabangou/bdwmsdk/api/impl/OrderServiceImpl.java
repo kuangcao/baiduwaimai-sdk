@@ -31,7 +31,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("order_id", orderId);
         Cmd cmd = createCmd(ORDER_CONFIRM, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         bodyMap.put("reason", reason);
         bodyMap.put("type", type);
         Cmd cmd = createCmd(ORDER_CANCEL, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("order_id", orderId);
         Cmd cmd = createCmd(ORDER_COMPLETE, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("order_id", orderId);
         Cmd cmd = createCmd(ORDER_STATUS_GET, bodyMap);
-        return doPost(cmd).getJSONObject(DATA).getIntValue("status");
+        return execute(cmd).getJSONObject(DATA).getIntValue("status");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("order_id", orderId);
         Cmd cmd = createCmd(ORDER_GET, bodyMap);
-        return getOrderDetailReq(JSON.toJSONString(doPost(cmd)));
+        return getOrderDetailReq(JSON.toJSONString(execute(cmd)));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         bodyMap.put("end_time", endTime);
         bodyMap.put("start_time", startTime);
         Cmd cmd = createCmd(ORDER_LIST, bodyMap);
-        JSONObject jsonObject = doPost(cmd).getJSONObject(DATA);
+        JSONObject jsonObject = execute(cmd).getJSONObject(DATA);
         return JSON.parseObject(jsonObject.toJSONString(), new TypeReference<Page<OrderLite>>(){});
     }
 

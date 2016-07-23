@@ -94,7 +94,7 @@ public class BdWmBaseService implements BdWmService {
         return DigestUtils.md5Hex(requestJson).toUpperCase();
     }
 
-    protected JSONObject doPost(Cmd cmd) throws BdWmErrorException {
+    protected JSONObject execute(Cmd cmd) throws BdWmErrorException {
         try {
             HttpPost httpPost = new HttpPost(API_URL);
             if (httpProxy != null) {

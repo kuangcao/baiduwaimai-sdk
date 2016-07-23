@@ -52,14 +52,14 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public long createCategory(Category category) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_CREATE, category);
-        JSONArray object = (JSONArray) doPost(cmd).getJSONArray(DATA);
+        JSONArray object = (JSONArray) execute(cmd).getJSONArray(DATA);
         return ((JSONObject) object.get(0)).getIntValue("id");
     }
 
     @Override
     public void updateCategory(CategoryUpdate categoryUpdate) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_UPDATE, categoryUpdate);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         categoryGet.setName(name);
         categoryGet.setShop_id(shopId);
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_GET, categoryGet);
-        return doPost(cmd).getObject(DATA, Category.class);
+        return execute(cmd).getObject(DATA, Category.class);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_CATEGORY_ALL, bodyMap);
-        JSONArray objects = (JSONArray)doPost(cmd).getJSONArray(DATA);
+        JSONArray objects = (JSONArray) execute(cmd).getJSONArray(DATA);
         List<Category> categories = new ArrayList<Category>();
         for (Object object: objects){
             Category category = JSON.parseObject(JSON.toJSONString(object), Category.class);
@@ -88,13 +88,13 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     @Override
     public void create(Dish dish) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_CREATE, dish);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
     public void update(Dish dish) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_UPDATE, dish);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_ONLINE, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_OFFLINE, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_DELETE, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -131,13 +131,13 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         bodyMap.put("shop_id", shopId);
         bodyMap.put("threshold", thresholds);
         Cmd cmd = createCmd(COMMAND_DISH_THRESHOLD_SET, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
     public void replaceBatch(DishReplaceBatch dishReplaceBatch) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_DISH_REPLACE_BATCH, dishReplaceBatch);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DISH_SHOW, bodyMap);
-        JSONArray array = doPost(cmd).getJSONArray(DATA);
+        JSONArray array = execute(cmd).getJSONArray(DATA);
         List<DishProduct> dishes = new ArrayList<DishProduct>();
         for (Object object: array){
             dishes.add(JSON.parseObject(JSON.toJSONString(object), DishProduct.class));

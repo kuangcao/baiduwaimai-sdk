@@ -48,13 +48,13 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
     @Override
     public int create(Shop shop) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_SHOP_CREATE, shop);
-        return doPost(cmd).getJSONObject(DATA).getIntValue("baidu_shop_id");
+        return execute(cmd).getJSONObject(DATA).getIntValue("baidu_shop_id");
     }
 
     @Override
     public boolean update(Shop shop) throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_SHOP_UPDATE, shop);
-        return doPost(cmd).getBoolean(DATA);
+        return execute(cmd).getBoolean(DATA);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_SHOP_OFFLINE, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_SHOP_OPEN, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         Map<String, String> bodyMap = new HashMap<String, String>(1);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_SHOP_CLOSE, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         bodyMap.put("shop_id", shopId);
         bodyMap.put("threshold", thresholds);
         Cmd cmd = createCmd(COMMAND_THRESHOLD_SET, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         bodyMap.put("delivery_delay_time", deliveryDelayTime);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_DELIVERY_DELAY, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         bodyMap.put("pic", pictures);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_UPLOAD_PIC, bodyMap);
-        return doPost(cmd).getBoolean(DATA);
+        return execute(cmd).getBoolean(DATA);
     }
 
     @Override
@@ -113,13 +113,13 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(1);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_SHOP_GET, bodyMap);
-        return doPost(cmd).getObject(DATA, ShopDetail.class);
+        return execute(cmd).getObject(DATA, ShopDetail.class);
     }
 
     @Override
     public List<ShopDetailLite> gets() throws BdWmErrorException {
         Cmd cmd = createCmd(COMMAND_SHOP_LIST, "");
-        JSONArray array = doPost(cmd).getJSONArray(DATA);
+        JSONArray array = execute(cmd).getJSONArray(DATA);
         List<ShopDetailLite> shops = new ArrayList<ShopDetailLite>();
         for (Object object: array){
             shops.add(JSON.parseObject(JSON.toJSONString(object), ShopDetailLite.class));
@@ -133,7 +133,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
         bodyMap.put("content", content);
         bodyMap.put("shop_id", shopId);
         Cmd cmd = createCmd(COMMAND_SHOP_ANNOUNCEMENT_SET, bodyMap);
-        doPost(cmd);
+        execute(cmd);
     }
 
 }
