@@ -31,6 +31,7 @@ public class BdWmBaseService implements BdWmService {
     public static final int VERSION = 2;
     public static final String BODY = "body";
     protected BdWmConfigStorage bdWmConfigStorage;
+    protected LogListener logListener;
     protected HttpHost httpProxy;
     protected CloseableHttpClient httpClient;
 
@@ -50,6 +51,17 @@ public class BdWmBaseService implements BdWmService {
     @Override
     public void setBdWmConfigStorage(BdWmConfigStorage bdWmConfigStorage) {
         this.bdWmConfigStorage = bdWmConfigStorage;
+    }
+
+    @Override
+    public void setLogListener(LogListener logListener) {
+        this.logListener = logListener;
+    }
+
+    private void logging(String cmd, boolean isSuccess, String request, String response) {
+        if (this.logListener != null) {
+            this.logListener.requestEvent(cmd, isSuccess, request, response);
+        }
     }
 
     @Override
@@ -103,8 +115,10 @@ public class BdWmBaseService implements BdWmService {
             JSONObject jsonObject = JSON.parseObject(resultContent);
             BdWmError error = BdWmError.fromJson(jsonObject);
             if (error != null) {
+                logging(cmd.getCmd(), false, requestString, resultContent);
                 throw new BdWmErrorException(error);
             }
+            logging(cmd.getCmd(), true, requestString, resultContent);
             return jsonObject.getJSONObject(BODY);
         } catch (IOException e) {
             throw new RuntimeException(e);

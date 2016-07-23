@@ -7,6 +7,8 @@ public interface BdWmService {
 
     void setBdWmConfigStorage(BdWmConfigStorage bdWmConfigStorage);
 
+    void setLogListener(LogListener logListener);
+
     void setHttpClient(CloseableHttpClient httpClient);
 
     void setHttpHost(HttpHost httpProxy);

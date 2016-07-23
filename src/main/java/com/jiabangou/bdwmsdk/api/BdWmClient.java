@@ -5,6 +5,8 @@ public interface BdWmClient {
 
     void setBaiduWaimaiConfigStorage(BdWmConfigStorage baiduWaimaiConfigStorage);
 
+    void setLogListener(LogListener logListener);
+
     /**
      * 获取门店服务
      * @return

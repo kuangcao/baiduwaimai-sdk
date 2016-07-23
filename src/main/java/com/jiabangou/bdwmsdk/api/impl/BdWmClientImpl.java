@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClients;
 public class BdWmClientImpl implements BdWmClient {
 
     private BdWmConfigStorage baiduWaimaiConfigStorage;
+    private LogListener logListener;
 
     private CloseableHttpClient httpClient;
 
@@ -48,12 +49,18 @@ public class BdWmClientImpl implements BdWmClient {
         httpClient = builder.build();
     }
 
+    @Override
+    public void setLogListener(LogListener logListener) {
+        this.logListener = logListener;
+    }
+
     public DishService getDishService() {
         if (dishService == null) {
             DishService service = new DishServiceImpl();
             service.setHttpClient(httpClient);
             service.setHttpHost(httpProxy);
             service.setBdWmConfigStorage(baiduWaimaiConfigStorage);
+            service.setLogListener(logListener);
             dishService = service;
             return dishService;
         } else {
@@ -68,6 +75,7 @@ public class BdWmClientImpl implements BdWmClient {
             service.setHttpClient(httpClient);
             service.setHttpHost(httpProxy);
             service.setBdWmConfigStorage(baiduWaimaiConfigStorage);
+            service.setLogListener(logListener);
             shopService = service;
             return shopService;
         } else {
@@ -81,6 +89,7 @@ public class BdWmClientImpl implements BdWmClient {
             service.setHttpClient(httpClient);
             service.setHttpHost(httpProxy);
             service.setBdWmConfigStorage(baiduWaimaiConfigStorage);
+            service.setLogListener(logListener);
             orderService = service;
             return orderService;
         } else {
