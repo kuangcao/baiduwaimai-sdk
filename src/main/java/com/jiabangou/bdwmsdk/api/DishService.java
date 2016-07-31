@@ -113,8 +113,23 @@ public interface DishService extends BdWmService {
      * @param dishId 菜品id
      * @param thresholds 库存阈值
      * @throws BdWmErrorException
+     * @deprecated
      */
     void setThreshold(String shopId, String dishId, List<Threshold> thresholds) throws BdWmErrorException;
+
+
+    /**
+     * <pre>
+     * 菜品库存阈值设置
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_threshold_set
+     * </pre>
+     * @param shopId
+     * @param dishId
+     * @param stock
+     * @throws BdWmErrorException
+     */
+    void setThreshold(String shopId, String dishId, int stock) throws BdWmErrorException;
+
 
     /**
      * <pre>
