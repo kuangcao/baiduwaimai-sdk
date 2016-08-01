@@ -1,7 +1,10 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
+@JSONType
 public class Category implements Serializable {
 
     // 合作方商户唯一 ID

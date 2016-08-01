@@ -1,10 +1,13 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
 /**
  * Created by konghang on 16/3/3.
  */
+@JSONType
 public class ShopDetailLite implements Serializable {
 
     //合作方商户唯一 ID

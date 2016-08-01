@@ -3,18 +3,15 @@ package com.jiabangou.bdwmsdk.api.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
-import com.jiabangou.bdwmsdk.model.*;
+import com.jiabangou.bdwmsdk.model.OrderDetail;
+import com.jiabangou.bdwmsdk.model.OrderLite;
+import com.jiabangou.bdwmsdk.model.Page;
 import com.jiabangou.bdwmsdk.utils.CmdUtils;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 public class OrderServiceImpl extends BdWmBaseService implements OrderService {
 
@@ -25,11 +22,6 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
     public static final String ORDER_STATUS_GET = "order.status.get";
     public static final String ORDER_GET = "order.get";
     public static final String ORDER_LIST = "order.list";
-
-    /*下行接口*/
-    public static final String RESP_ORDER_CREATE = "resp.order.create";
-    public static final String RESP_ORDER_STATUS_GET = "resp.order.status.get";
-    public static final String RESP_ORDER_STATUS_PUSH = "resp.order.status.push";
 
     @Override
     public void confirm(String orderId) throws BdWmErrorException {
@@ -75,7 +67,8 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         bodyMap.put("start_time", startTime);
         JSONObject jsonObject = execute(ORDER_LIST, bodyMap);
         return JSON.parseObject(jsonObject.getJSONObject(CmdUtils.DATA).toJSONString(),
-                new TypeReference<Page<OrderLite>>(){});
+                new TypeReference<Page<OrderLite>>() {
+                });
     }
 
 }

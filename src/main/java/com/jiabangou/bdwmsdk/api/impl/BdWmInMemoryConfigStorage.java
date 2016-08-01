@@ -4,7 +4,7 @@ import com.jiabangou.bdwmsdk.api.BdWmConfigStorage;
 
 public class BdWmInMemoryConfigStorage implements BdWmConfigStorage {
 
-    protected volatile int source;
+    protected volatile String source;
     protected volatile String secret;
 
     protected volatile String http_proxy_host;
@@ -13,11 +13,11 @@ public class BdWmInMemoryConfigStorage implements BdWmConfigStorage {
     protected volatile String http_proxy_password;
 
     @Override
-    public int getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(int source) {
+    public void setSource(String source) {
         this.source = source;
     }
 

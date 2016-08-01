@@ -1,11 +1,14 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wanglei on 16-3-2.
  */
+@JSONType
 public class DeliveryRegion implements Serializable {
     //配送区域名称，最长不超过10个汉字
     private String name;

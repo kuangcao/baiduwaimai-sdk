@@ -1,5 +1,7 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 /**
  * Created by wanglei on 16-3-3.
  */
+@JSONType
 public class Dish implements Serializable {
 
     // 合作方商户唯一 ID

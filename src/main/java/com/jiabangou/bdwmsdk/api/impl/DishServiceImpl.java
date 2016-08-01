@@ -83,7 +83,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
             put("shop_id", shopId);
         }};
         return execute(COMMAND_DISH_CATEGORY_ALL, bodyMap).getJSONArray(CmdUtils.DATA)
-                .stream().map(o->TypeUtils.castToJavaBean(o, Category.class)).collect(toList());
+                .stream().map(o -> TypeUtils.castToJavaBean(o, Category.class)).collect(toList());
     }
 
     @Override
@@ -150,7 +150,7 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
             put("shop_id", shopId);
         }};
         return execute(COMMAND_DISH_SHOW, bodyMap).getJSONArray(CmdUtils.DATA)
-                .stream().map(o->TypeUtils.castToJavaBean(o, DishProduct.class))
+                .stream().map(o -> TypeUtils.castToJavaBean(o, DishProduct.class))
                 .collect(Collectors.toList());
     }
 

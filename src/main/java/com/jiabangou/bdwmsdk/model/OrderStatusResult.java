@@ -1,12 +1,18 @@
 package com.jiabangou.bdwmsdk.model;
 
-public class OrderStatusResult {
+import com.alibaba.fastjson.annotation.JSONType;
+
+import java.io.Serializable;
+
+@JSONType
+public class OrderStatusResult implements Serializable{
 
     private String source_order_id;
     private int status;
 
     /**
      * 合作方订单 ID
+     *
      * @return
      */
     public String getSource_order_id() {
@@ -15,6 +21,7 @@ public class OrderStatusResult {
 
     /**
      * 合作方订单 ID
+     *
      * @param source_order_id
      */
     public void setSource_order_id(String source_order_id) {

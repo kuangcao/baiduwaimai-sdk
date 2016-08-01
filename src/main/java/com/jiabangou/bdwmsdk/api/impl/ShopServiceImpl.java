@@ -1,14 +1,15 @@
 package com.jiabangou.bdwmsdk.api.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.bdwmsdk.api.ShopService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
 import com.jiabangou.bdwmsdk.utils.CmdUtils;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ShopServiceImpl extends BdWmBaseService implements ShopService {
@@ -115,7 +116,7 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
     @Override
     public List<ShopDetailLite> gets() throws BdWmErrorException {
         return execute(COMMAND_SHOP_LIST, "").getJSONArray(CmdUtils.DATA)
-                .stream().map(o-> TypeUtils.castToJavaBean(o, ShopDetailLite.class))
+                .stream().map(o -> TypeUtils.castToJavaBean(o, ShopDetailLite.class))
                 .collect(Collectors.toList());
     }
 

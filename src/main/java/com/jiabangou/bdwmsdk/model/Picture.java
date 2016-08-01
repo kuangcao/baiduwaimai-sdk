@@ -1,10 +1,13 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
 /**
  * Created by wanglei on 16-3-12.
  */
+@JSONType
 public class Picture implements Serializable {
 
     //图片类型，参见附录商户资质图片类型对照表

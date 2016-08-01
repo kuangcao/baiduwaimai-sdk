@@ -1,8 +1,11 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 import java.util.List;
 
+@JSONType
 public class OrderDetail implements Serializable {
 
     private String source;

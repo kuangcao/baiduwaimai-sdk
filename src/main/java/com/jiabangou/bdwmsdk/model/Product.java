@@ -1,7 +1,9 @@
 package com.jiabangou.bdwmsdk.model;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.annotation.JSONType;
 
+import java.io.Serializable;
+@JSONType
 public class Product implements Serializable {
 
     private String product_id;

@@ -1,11 +1,14 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
 /**
  * 营业时间
  * Created by konghang on 16/3/3.
  */
+@JSONType
 public class BussinessTime implements Serializable {
 
     private String start;

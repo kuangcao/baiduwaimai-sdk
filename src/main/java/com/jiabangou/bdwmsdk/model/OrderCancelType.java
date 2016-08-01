@@ -26,8 +26,7 @@ public enum OrderCancelType {
     too_busy(7, "餐厅太忙"),
     CAN_NOT_CONTACT_USER(8, "联系不上用户"),
     FALSE_ORDER(9, "假订单"),
-    CUSTOM(-1, "自定义输入"),
-    ;
+    CUSTOM(-1, "自定义输入"),;
     // 成员变量
     private String name;
     private int type;

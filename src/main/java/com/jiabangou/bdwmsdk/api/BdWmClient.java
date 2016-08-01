@@ -13,6 +13,7 @@ public interface BdWmClient {
 
     /**
      * 用于接收获取到的json字符串
+     *
      * @param requestJsonString
      * @return
      */
@@ -20,18 +21,21 @@ public interface BdWmClient {
 
     /**
      * 获取门店服务
+     *
      * @return
      */
     ShopService getShopService();
 
     /**
      * 获取菜品服务
+     *
      * @return
      */
     DishService getDishService();
 
     /**
      * 获取订单服务
+     *
      * @return
      */
     OrderService getOrderService();

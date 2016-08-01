@@ -1,9 +1,10 @@
 package com.jiabangou.bdwmsdk.model;
 
-import java.util.List;
+import com.alibaba.fastjson.annotation.JSONType;
 
 import java.io.Serializable;
-
+import java.util.List;
+@JSONType
 public class Page<T> implements Serializable {
 
     private List<T> list;

@@ -1,6 +1,5 @@
 package com.jiabangou.bdwmsdk.api;
 
-import com.jiabangou.bdwmsdk.model.Cmd;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
 import com.jiabangou.bdwmsdk.model.OrderStatusResult;
 
@@ -10,6 +9,7 @@ import com.jiabangou.bdwmsdk.model.OrderStatusResult;
  */
 public interface PushConsumer {
 
+    /*下行接口*/
     String CMD_ORDER_CREATE = "order.create";
     String CMD_ORDER_STATUS_GET = "order.status.get";
     String CMD_ORDER_STATUS_PUSH = "order.status.push";
@@ -19,6 +19,7 @@ public interface PushConsumer {
      * <pre>
      * 参考    http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_thr_order_create
      * </pre>
+     *
      * @param order 订单
      * @return 当前我方系统的订单id
      */
@@ -29,6 +30,7 @@ public interface PushConsumer {
      * <pre>
      * 参考    http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_status_push
      * </pre>
+     *
      * @param orderId 订单id
      * @return 订单状态返回结果
      */
@@ -39,8 +41,9 @@ public interface PushConsumer {
      * <pre>
      * 参考    http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_order_status_push
      * </pre>
+     *
      * @param orderId 订单id
-     * @param status 状态
+     * @param status  状态
      */
     void pushOrderStatus(String orderId, int status);
 }

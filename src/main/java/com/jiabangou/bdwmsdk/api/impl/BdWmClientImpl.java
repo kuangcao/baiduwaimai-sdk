@@ -1,6 +1,5 @@
 package com.jiabangou.bdwmsdk.api.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.bdwmsdk.api.*;
@@ -20,7 +19,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BdWmClientImpl implements BdWmClient {
@@ -95,7 +93,7 @@ public class BdWmClientImpl implements BdWmClient {
                         data);
             } else if (PushConsumer.CMD_ORDER_STATUS_GET.equals(requestCmd.getCmd())) {
                 OrderStatusResult orderStatusResult = pushConsumer
-                        .getOrderStatus(((JSONObject)requestCmd.getBody()).getString("order_id"));
+                        .getOrderStatus(((JSONObject) requestCmd.getBody()).getString("order_id"));
 
                 return CmdUtils.buildSuccessCmd(
                         baiduWaimaiConfigStorage.getSource(),
@@ -104,7 +102,7 @@ public class BdWmClientImpl implements BdWmClient {
                         CmdUtils.getResponseCmdName(requestCmd.getCmd()),
                         orderStatusResult);
             } else if (PushConsumer.CMD_ORDER_STATUS_PUSH.equals(requestCmd.getCmd())) {
-                JSONObject jsonObject = (JSONObject)requestCmd.getBody();
+                JSONObject jsonObject = (JSONObject) requestCmd.getBody();
                 String orderId = jsonObject.getString("order_id");
                 int status = jsonObject.getIntValue("status");
                 pushConsumer.pushOrderStatus(orderId, status);

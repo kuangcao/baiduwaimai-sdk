@@ -1,15 +1,15 @@
 package com.jiabangou.bdwmsdk.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
 import com.jiabangou.bdwmsdk.model.CmdSign;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 命令构建工具类
@@ -19,10 +19,10 @@ public class CmdUtils {
 
     public static final String DATA = "data";
     public static final String API_URL = "http://api.waimai.baidu.com";
-    public static final int VERSION = 2;
+    public static final String VERSION = "2";
     public static final String BODY = "body";
 
-    public static Cmd buildCmd(int source, String secret, int version, String cmdName, Object body) {
+    public static Cmd buildCmd(String source, String secret, String version, String cmdName, Object body) {
         Cmd cmd = new Cmd();
         cmd.setCmd(cmdName);
         cmd.setSource(source);
@@ -38,16 +38,16 @@ public class CmdUtils {
         return "resp." + requestCmdName;
     }
 
-    public static Cmd parseCmd(String jsonString, int source, String secret) throws BdWmErrorException {
+    public static Cmd parseCmd(String jsonString, String source, String secret) throws BdWmErrorException {
 
         Cmd cmd = JSON.parseObject(jsonString, Cmd.class);
         if (cmd.getCmd() == null || cmd.getCmd().isEmpty()) {
             throw new BdWmErrorException(1, "cmd is required");
         }
-        if (cmd.getSource() == 0) {
+        if (cmd.getSource() == null || cmd.getSource().isEmpty()) {
             throw new BdWmErrorException(1, "source is required");
         }
-        if (cmd.getSource() != source) {
+        if (!cmd.getSource().equals(source)) {
             throw new BdWmErrorException(1, "source is incorrect");
         }
         if (cmd.getSign() == null || cmd.getSign().isEmpty()) {
@@ -59,7 +59,7 @@ public class CmdUtils {
         if (cmd.getTimestamp() == 0) {
             throw new BdWmErrorException(1, "timestamp is required");
         }
-        if (cmd.getVersion() == 0) {
+        if (cmd.getVersion() == null || cmd.getVersion().isEmpty()) {
             throw new BdWmErrorException(1, "version is required");
         }
         if (!checkSignature(cmd, secret, cmd.getSign())) {
@@ -68,7 +68,7 @@ public class CmdUtils {
         return cmd;
     }
 
-    public static Cmd buildSuccessCmd(int source, String secret, int version, String cmdName, Object data) {
+    public static Cmd buildSuccessCmd(String source, String secret, String version, String cmdName, Object data) {
         Map<String, Object> params = new LinkedHashMap<String, Object>() {{
             put("errno", 0);
             put("error", "success");
@@ -79,11 +79,11 @@ public class CmdUtils {
         return buildCmd(source, secret, version, cmdName, params);
     }
 
-    public static Cmd buildSuccessCmd(int source, String secret, int version, String cmdName) {
+    public static Cmd buildSuccessCmd(String source, String secret, String version, String cmdName) {
         return buildSuccessCmd(source, secret, version, cmdName, null);
     }
 
-    public static Cmd buildErrorCmd(int source, String secret, int version,
+    public static Cmd buildErrorCmd(String source, String secret, String version,
                                     String cmdName, BdWmErrorException exception) {
         return buildCmd(source, secret, version, cmdName, new LinkedHashMap<String, Object>() {{
             put("errno", exception.getCode());
@@ -91,7 +91,7 @@ public class CmdUtils {
         }});
     }
 
-    public static Cmd buildErrorCmd(int source, String secret, int version,
+    public static Cmd buildErrorCmd(String source, String secret, String version,
                                     String cmdName, Exception exception) {
         return buildCmd(source, secret, version, cmdName, new LinkedHashMap<String, Object>() {{
             put("errno", -1); // 未知错误
@@ -101,10 +101,34 @@ public class CmdUtils {
 
     public static String createApiSignature(Cmd cmd, String secret) {
         CmdSign cmdSign = new CmdSign(cmd, secret);
-        String requestJson = JSON.toJSONString(cmdSign, SerializerFeature.SortField);
+
+        String requestJson = JSONObject.toJSONString(covertToSortedMap((JSONObject)JSON.toJSON(cmdSign)));
+
+//        String requestJson = JSON.toJSONString(cmdSign, SerializerFeature.SortField);
+
         requestJson = requestJson.replace("/", "\\/");
         requestJson = chinaToUnicode(requestJson);
         return DigestUtils.md5Hex(requestJson).toUpperCase();
+    }
+
+    public static SortedMap<String, Object> covertToSortedMap(Map<String, Object> map) {
+        SortedMap<String, Object> sortedMap= new TreeMap<>(map);
+        for (Map.Entry<String, Object> entry: sortedMap.entrySet()) {
+            if (entry.getValue() instanceof Map && (!(entry.getValue() instanceof SortedMap))) {
+                entry.setValue(covertToSortedMap((Map<String, Object>)entry.getValue()));
+            } else if (entry.getValue() instanceof List) {
+                List newList = new ArrayList<>();
+                for (Object obj : (List)entry.getValue()) {
+                    if (obj instanceof Map && (!(obj instanceof SortedMap))) {
+                        newList.add(covertToSortedMap((Map<String, Object>)obj));
+                    } else {
+                        newList.add(obj);
+                    }
+                }
+                entry.setValue(newList);
+            }
+        }
+        return sortedMap;
     }
 
     /**

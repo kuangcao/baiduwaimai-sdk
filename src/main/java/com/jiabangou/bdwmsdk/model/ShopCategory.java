@@ -1,11 +1,14 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
 /**
  * 门店分类
  * Created by konghang on 16/3/3.
  */
+@JSONType
 public class ShopCategory implements Serializable {
     //一级分类
     private String category1;

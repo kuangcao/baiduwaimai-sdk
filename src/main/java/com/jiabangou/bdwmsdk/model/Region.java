@@ -1,11 +1,14 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
 /**
  * 经纬度
  * Created by konghang on 16/3/3.
  */
+@JSONType
 public class Region implements Serializable {
 
     private Double latitude;

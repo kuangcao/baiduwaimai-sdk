@@ -1,8 +1,11 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 /**
  * Created by konghang on 16/3/3.
  */
+@JSONType
 public class ShopDetail extends Shop {
 
     //合作方商户唯一 ID

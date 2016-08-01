@@ -2,7 +2,7 @@ package com.jiabangou.bdwmsdk.api;
 
 public interface BdWmConfigStorage {
 
-    int getSource();
+    String getSource();
 
     String getSecret();
 

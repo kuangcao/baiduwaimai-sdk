@@ -1,7 +1,10 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
+@JSONType
 public class OrderLite implements Serializable {
 
     private String order_id;

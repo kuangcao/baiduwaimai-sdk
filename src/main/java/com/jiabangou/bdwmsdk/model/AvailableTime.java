@@ -1,10 +1,13 @@
 package com.jiabangou.bdwmsdk.model;
 
+import com.alibaba.fastjson.annotation.JSONType;
+
 import java.io.Serializable;
 
 /**
  * Created by wanglei on 16-3-3.
  */
+@JSONType
 public class AvailableTime implements Serializable {
 
     // 开始时间(不必填)

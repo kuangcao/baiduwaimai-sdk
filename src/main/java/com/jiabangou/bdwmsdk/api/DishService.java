@@ -12,6 +12,7 @@ public interface DishService extends BdWmService {
      * 创建菜品分类信息
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_category_create
      * </pre>
+     *
      * @param category 菜品分类信息
      * @return 菜品分类id
      * @throws BdWmErrorException
@@ -23,6 +24,7 @@ public interface DishService extends BdWmService {
      * 更新菜品分类信息
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_category_update
      * </pre>
+     *
      * @param categoryUpdate 菜品信息
      * @throws BdWmErrorException
      */
@@ -33,8 +35,9 @@ public interface DishService extends BdWmService {
      * 获取单个菜品分类信息
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_category_get
      * </pre>
+     *
      * @param shopId 商户id
-     * @param name 分类的名字
+     * @param name   分类的名字
      * @return 菜品分类信息
      * @throws BdWmErrorException
      */
@@ -45,6 +48,7 @@ public interface DishService extends BdWmService {
      * 获取所有菜品分类信息
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_category_all
      * </pre>
+     *
      * @param shopId 商户id
      * @return 菜品分类列表
      * @throws BdWmErrorException
@@ -56,6 +60,7 @@ public interface DishService extends BdWmService {
      * 菜品上传
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_create
      * </pre>
+     *
      * @param dish 菜品信息
      * @throws BdWmErrorException
      */
@@ -66,6 +71,7 @@ public interface DishService extends BdWmService {
      * 菜品修改
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_update
      * </pre>
+     *
      * @param dish 菜品信息
      * @throws BdWmErrorException
      */
@@ -76,6 +82,7 @@ public interface DishService extends BdWmService {
      * 菜品上线
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_online
      * </pre>
+     *
      * @param shopId 商户id
      * @param dishId 菜品id
      * @throws BdWmErrorException
@@ -87,6 +94,7 @@ public interface DishService extends BdWmService {
      * 菜品下线
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_offline
      * </pre>
+     *
      * @param shopId 商户id
      * @param dishId 菜品id
      * @throws BdWmErrorException
@@ -98,6 +106,7 @@ public interface DishService extends BdWmService {
      * 菜品删除
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_delete
      * </pre>
+     *
      * @param shopId 商户id
      * @param dishId 菜品id
      * @throws BdWmErrorException
@@ -109,8 +118,9 @@ public interface DishService extends BdWmService {
      * 菜品库存阈值设置
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_threshold_set
      * </pre>
-     * @param shopId 商户id
-     * @param dishId 菜品id
+     *
+     * @param shopId     商户id
+     * @param dishId     菜品id
      * @param thresholds 库存阈值
      * @throws BdWmErrorException
      * @deprecated
@@ -123,6 +133,7 @@ public interface DishService extends BdWmService {
      * 菜品库存阈值设置
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_threshold_set
      * </pre>
+     *
      * @param shopId
      * @param dishId
      * @param stock
@@ -136,6 +147,7 @@ public interface DishService extends BdWmService {
      * 菜品批量替换
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_replace_batch
      * </pre>
+     *
      * @param dishReplaceBatch 批量菜品对象
      * @throws BdWmErrorException
      */
@@ -146,6 +158,7 @@ public interface DishService extends BdWmService {
      * 获取商户菜品列表
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_show
      * </pre>
+     *
      * @param shopId 商户id
      * @throws BdWmErrorException
      */

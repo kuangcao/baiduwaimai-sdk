@@ -1,7 +1,9 @@
 package com.jabangou.bdwmsdk;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jiabangou.bdwmsdk.api.DishService;
+import com.jiabangou.bdwmsdk.api.LogListener;
 import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.api.ShopService;
 import com.jiabangou.bdwmsdk.api.impl.BdWmClientImpl;
@@ -10,9 +12,7 @@ import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -24,11 +24,30 @@ public class BaiDuApiTest {
 
         BdWmClientImpl bdWmClient = new BdWmClientImpl();
         BdWmInMemoryConfigStorage baiduWaimaiConfigStorage = new BdWmInMemoryConfigStorage();
-        baiduWaimaiConfigStorage.setSource(0);
+        baiduWaimaiConfigStorage.setSource("");
         baiduWaimaiConfigStorage.setSecret("");
         bdWmClient.setBaiduWaimaiConfigStorage(baiduWaimaiConfigStorage);
+        bdWmClient.setLogListener((cmd, isSuccess, request, response) -> {
+            System.out.println("cmd:"+cmd);
+            System.out.println("isSuccess:"+isSuccess);
+            System.out.println("request:"+JSON.toJSONString(JSON.parseObject(request), SerializerFeature.PrettyFormat, SerializerFeature.SortField));
+//
+//            TreeMap<String, Object> treeMap= new TreeMap<>(new MapKeyComparator());
+//            treeMap.putAll(JSON.parseObject(response));
+            System.out.println("response:"+JSON.toJSONString(JSON.parseObject(response), SerializerFeature.PrettyFormat, SerializerFeature.SortField));
+        });
         return bdWmClient;
     }
+
+    class MapKeyComparator implements Comparator<String> {
+
+        @Override
+        public int compare(String str1, String str2) {
+
+            return str1.compareTo(str2);
+        }
+    }
+
 
     /*商户*/
     @Test
