@@ -6,6 +6,27 @@ import java.io.Serializable;
 
 public class BdWmError implements Serializable {
 
+    /**
+     * 商店已存在
+     */
+    public static final int SHOP_ALREADY_EXIST = 20252;
+    /**
+     * 商店不存在
+     */
+    public static final int SHOP_NOT_EXIST = 20253;
+    /**
+     * 未知菜品分类错误
+     */
+    public static final int UNKNOW_CATEGORY_ERROR = 10205;
+    /**
+     * 分类已存在
+     */
+    public static final int CATEGORY_ALREADY_EXISTS = 10213;
+    /**
+     * 菜品已存在
+     */
+    public static final int DISH_ALREADY_EXIST = 10203;
+
     private int errorCode;
 
     private String errorMsg;
