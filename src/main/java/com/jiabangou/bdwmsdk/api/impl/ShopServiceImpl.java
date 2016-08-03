@@ -110,7 +110,14 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
     public ShopDetail getDetail(String shopId) throws BdWmErrorException {
         Map<String, Object> bodyMap = new LinkedHashMap<>(1);
         bodyMap.put("shop_id", shopId);
-        return execute(COMMAND_SHOP_GET, bodyMap).getObject(CmdUtils.DATA, ShopDetail.class);
+        try {
+            return execute(COMMAND_SHOP_GET, bodyMap).getObject(CmdUtils.DATA, ShopDetail.class);
+        } catch (BdWmErrorException e) {
+            if (BdWmErrorException.SHOP_NOT_EXIST == e.getCode()) {
+                return null;
+            }
+            throw e;
+        }
     }
 
     @Override

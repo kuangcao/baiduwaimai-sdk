@@ -73,8 +73,15 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         CategoryGet categoryGet = new CategoryGet();
         categoryGet.setName(name);
         categoryGet.setShop_id(shopId);
-        return TypeUtils.castToJavaBean(execute(COMMAND_DISH_CATEGORY_GET, categoryGet)
-                .getJSONObject(CmdUtils.DATA), Category.class);
+        try {
+            return TypeUtils.castToJavaBean(execute(COMMAND_DISH_CATEGORY_GET, categoryGet)
+                    .getJSONObject(CmdUtils.DATA), Category.class);
+        } catch (BdWmErrorException e) {
+            if (e.getCode() == BdWmErrorException.UNKNOW_CATEGORY_ERROR) {
+                return null;
+            }
+            throw e;
+        }
     }
 
     @Override
