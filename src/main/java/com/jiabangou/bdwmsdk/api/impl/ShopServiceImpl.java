@@ -30,9 +30,6 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
     //商户歇业
     public final static String COMMAND_SHOP_CLOSE = "shop.close";
 
-    //商户订单阈值设置
-    public final static String COMMAND_THRESHOLD_SET = "shop.threshold.set";
-
     //商户配送时延设置
     public final static String COMMAND_DELIVERY_DELAY = "shop.delivery.delay";
 
@@ -80,14 +77,6 @@ public class ShopServiceImpl extends BdWmBaseService implements ShopService {
             put("shop_id", shopId);
         }};
         execute(COMMAND_SHOP_CLOSE, bodyMap);
-    }
-
-    @Override
-    public void setThreshold(String shopId, List<Threshold> thresholds) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new LinkedHashMap<>(2);
-        bodyMap.put("shop_id", shopId);
-        bodyMap.put("threshold", thresholds);
-        execute(COMMAND_THRESHOLD_SET, bodyMap);
     }
 
     @Override

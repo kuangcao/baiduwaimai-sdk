@@ -31,6 +31,9 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     public static final String COMMAND_DISH_CATEGORY_ALL = "dish.category.all";
 
     //菜品上传
+    public static final String COMMAND_DISH_GET = "dish.get";
+
+    //菜品上传
     public static final String COMMAND_DISH_CREATE = "dish.create";
 
     //菜品修改
@@ -159,6 +162,22 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         return execute(COMMAND_DISH_SHOW, bodyMap).getJSONArray(CmdUtils.DATA)
                 .stream().map(o -> TypeUtils.castToJavaBean(o, DishProduct.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DishDetail get(String shopId, String dishId) throws BdWmErrorException {
+        Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(2) {{
+            put("shop_id", shopId);
+            put("dish_id", dishId);
+        }};
+        try {
+            return TypeUtils.castToJavaBean(execute(COMMAND_DISH_GET, bodyMap).getJSONObject(CmdUtils.DATA), DishDetail.class);
+        } catch (BdWmErrorException e){
+            if (e.getCode() == BdWmErrorException.UNKNOW_DISH_ERROR){
+                return null;
+            }
+            throw e;
+        }
     }
 
 }

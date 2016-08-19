@@ -64,17 +64,6 @@ public interface ShopService extends BdWmService {
 
     /**
      * <pre>
-     * 商户订单阈值设置
-     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_shop_threshold_set
-     * </pre>
-     *
-     * @param shopId 商户id
-     * @throws BdWmErrorException
-     */
-    void setThreshold(String shopId, List<Threshold> thresholds) throws BdWmErrorException;
-
-    /**
-     * <pre>
      * 商户配送时延设置
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_shop_delivery_delay
      * </pre>

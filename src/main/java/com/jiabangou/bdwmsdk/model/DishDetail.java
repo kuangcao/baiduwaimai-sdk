@@ -47,6 +47,46 @@ public class DishDetail implements Serializable {
     //菜品状态
     private Integer status;
 
+    private List<Norms> normses;
+
+    private List<Attr> attrs;
+
+    private String wid;
+
+    private Integer left_num;
+
+    public List<Norms> getNormses() {
+        return normses;
+    }
+
+    public void setNormses(List<Norms> normses) {
+        this.normses = normses;
+    }
+
+    public List<Attr> getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(List<Attr> attrs) {
+        this.attrs = attrs;
+    }
+
+    public String getWid() {
+        return wid;
+    }
+
+    public void setWid(String wid) {
+        this.wid = wid;
+    }
+
+    public Integer getLeft_num() {
+        return left_num;
+    }
+
+    public void setLeft_num(Integer left_num) {
+        this.left_num = left_num;
+    }
+
     public String getName() {
         return name;
     }
@@ -165,7 +205,11 @@ public class DishDetail implements Serializable {
         if (rank != null ? !rank.equals(that.rank) : that.rank != null) return false;
         if (baidu_dish_id != null ? !baidu_dish_id.equals(that.baidu_dish_id) : that.baidu_dish_id != null)
             return false;
-        return status != null ? status.equals(that.status) : that.status == null;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (normses != null ? !normses.equals(that.normses) : that.normses != null) return false;
+        if (attrs != null ? !attrs.equals(that.attrs) : that.attrs != null) return false;
+        if (wid != null ? !wid.equals(that.wid) : that.wid != null) return false;
+        return left_num != null ? left_num.equals(that.left_num) : that.left_num == null;
 
     }
 
@@ -183,6 +227,10 @@ public class DishDetail implements Serializable {
         result = 31 * result + (rank != null ? rank.hashCode() : 0);
         result = 31 * result + (baidu_dish_id != null ? baidu_dish_id.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (normses != null ? normses.hashCode() : 0);
+        result = 31 * result + (attrs != null ? attrs.hashCode() : 0);
+        result = 31 * result + (wid != null ? wid.hashCode() : 0);
+        result = 31 * result + (left_num != null ? left_num.hashCode() : 0);
         return result;
     }
 
@@ -201,6 +249,10 @@ public class DishDetail implements Serializable {
                 ", rank=" + rank +
                 ", baidu_dish_id='" + baidu_dish_id + '\'' +
                 ", status=" + status +
+                ", normses=" + normses +
+                ", attrs=" + attrs +
+                ", wid='" + wid + '\'' +
+                ", left_num=" + left_num +
                 '}';
     }
 }

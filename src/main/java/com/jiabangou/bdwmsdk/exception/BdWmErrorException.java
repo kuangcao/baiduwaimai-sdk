@@ -25,6 +25,10 @@ public class BdWmErrorException extends Exception {
      */
     public static final int CATEGORY_ALREADY_EXISTS = 10213;
     /**
+     * 未知菜品错误
+     */
+    public static final int UNKNOW_DISH_ERROR = 10202;
+    /**
      * 菜品已存在
      */
     public static final int DISH_ALREADY_EXIST = 10203;

@@ -164,4 +164,16 @@ public interface DishService extends BdWmService {
      */
     List<DishProduct> gets(String shopId) throws BdWmErrorException;
 
+    /**
+     * <pre>
+     * 获取获取菜品详情
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_show
+     * </pre>
+     *
+     * @param shopId 商户id
+     * @param dishId 菜品id
+     * @throws BdWmErrorException
+     */
+    DishDetail get(String shopId, String dishId) throws BdWmErrorException;
+
 }

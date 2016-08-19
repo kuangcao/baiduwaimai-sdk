@@ -42,17 +42,21 @@ public class Dish implements Serializable {
     //可售时间key为 1 表示周一，为，7 表示周日，"*" 表示周一到周日(不必填)
     private HashMap<String, List<AvailableTime>> available_times;
 
-    //菜品库存设置，每天固定时间，设置库存数量(不必填)
-    private List<Threshold> threshold;
+    private Integer stock;
 
     //菜品分类
     private List<Category> category;
 
-    //菜品规格(不必填)
-    private List<Norms> norms;
-
     //菜品属性 （不必填）
     private List<Attr> attr;
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
     public String getShop_id() {
         return shop_id;
@@ -134,28 +138,12 @@ public class Dish implements Serializable {
         this.available_times = available_times;
     }
 
-    public List<Threshold> getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(List<Threshold> threshold) {
-        this.threshold = threshold;
-    }
-
     public List<Category> getCategory() {
         return category;
     }
 
     public void setCategory(List<Category> category) {
         this.category = category;
-    }
-
-    public List<Norms> getNorms() {
-        return norms;
-    }
-
-    public void setNorms(List<Norms> norms) {
-        this.norms = norms;
     }
 
     public List<Attr> getAttr() {
@@ -186,9 +174,8 @@ public class Dish implements Serializable {
         if (description != null ? !description.equals(dish.description) : dish.description != null) return false;
         if (available_times != null ? !available_times.equals(dish.available_times) : dish.available_times != null)
             return false;
-        if (threshold != null ? !threshold.equals(dish.threshold) : dish.threshold != null) return false;
+        if (stock != null ? !stock.equals(dish.stock) : dish.stock != null) return false;
         if (category != null ? !category.equals(dish.category) : dish.category != null) return false;
-        if (norms != null ? !norms.equals(dish.norms) : dish.norms != null) return false;
         return attr != null ? attr.equals(dish.attr) : dish.attr == null;
 
     }
@@ -205,9 +192,8 @@ public class Dish implements Serializable {
         result = 31 * result + (package_box_num != null ? package_box_num.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (available_times != null ? available_times.hashCode() : 0);
-        result = 31 * result + (threshold != null ? threshold.hashCode() : 0);
+        result = 31 * result + (stock != null ? stock.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
-        result = 31 * result + (norms != null ? norms.hashCode() : 0);
         result = 31 * result + (attr != null ? attr.hashCode() : 0);
         return result;
     }
@@ -225,9 +211,8 @@ public class Dish implements Serializable {
                 ", package_box_num=" + package_box_num +
                 ", description='" + description + '\'' +
                 ", available_times=" + available_times +
-                ", threshold=" + threshold +
+                ", stock=" + stock +
                 ", category=" + category +
-                ", norms=" + norms +
                 ", attr=" + attr +
                 '}';
     }
