@@ -131,15 +131,6 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     }
 
     @Override
-    public void setThreshold(String shopId, String dishId, List<Threshold> thresholds) throws BdWmErrorException {
-        Map<String, Object> bodyMap = new LinkedHashMap<>(3);
-        bodyMap.put("dish_id", dishId);
-        bodyMap.put("shop_id", shopId);
-        bodyMap.put("threshold", thresholds);
-        execute(COMMAND_DISH_THRESHOLD_SET, bodyMap);
-    }
-
-    @Override
     public void setThreshold(String shopId, String dishId, int stock) throws BdWmErrorException {
         Map<String, Object> bodyMap = new LinkedHashMap<String, Object>(3) {{
             put("dish_id", dishId);

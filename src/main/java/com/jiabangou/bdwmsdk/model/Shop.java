@@ -70,9 +70,6 @@ public class Shop implements Serializable {
     //餐盒费，单位：分
     private Integer package_box_price;
 
-    //订单阈值设置(固定时间自动设置库存)（不必填）
-    private List<Threshold> threshold;
-
     //商户代码
     private String shopCode;
 
@@ -236,14 +233,6 @@ public class Shop implements Serializable {
         this.package_box_price = package_box_price;
     }
 
-    public List<Threshold> getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(List<Threshold> threshold) {
-        this.threshold = threshold;
-    }
-
     public String getShopCode() {
         return shopCode;
     }
@@ -286,7 +275,6 @@ public class Shop implements Serializable {
             return false;
         if (package_box_price != null ? !package_box_price.equals(shop.package_box_price) : shop.package_box_price != null)
             return false;
-        if (threshold != null ? !threshold.equals(shop.threshold) : shop.threshold != null) return false;
         return shopCode != null ? shopCode.equals(shop.shopCode) : shop.shopCode == null;
 
     }
@@ -313,7 +301,6 @@ public class Shop implements Serializable {
         result = 31 * result + (invoice_support != null ? invoice_support.hashCode() : 0);
         result = 31 * result + (min_order_price != null ? min_order_price.hashCode() : 0);
         result = 31 * result + (package_box_price != null ? package_box_price.hashCode() : 0);
-        result = 31 * result + (threshold != null ? threshold.hashCode() : 0);
         result = 31 * result + (shopCode != null ? shopCode.hashCode() : 0);
         return result;
     }
@@ -341,7 +328,6 @@ public class Shop implements Serializable {
                 ", invoice_support=" + invoice_support +
                 ", min_order_price=" + min_order_price +
                 ", package_box_price=" + package_box_price +
-                ", threshold=" + threshold +
                 ", shopCode='" + shopCode + '\'' +
                 '}';
     }
