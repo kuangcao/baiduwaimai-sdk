@@ -14,12 +14,7 @@ public class ServiceTest {
 
         BdWmClientImpl bdWmClient = new BdWmClientImpl();
         BdWmInMemoryConfigStorage baiduWaimaiConfigStorage = new BdWmInMemoryConfigStorage();
-        //prod
-//        baiduWaimaiConfigStorage.setSource("30137");
-//        baiduWaimaiConfigStorage.setSecret("66a2b33605692114");
-        //test
-        baiduWaimaiConfigStorage.setSource("65400");
-        baiduWaimaiConfigStorage.setSecret("2540f3c01ae977d8");
+        
         bdWmClient.setBaiduWaimaiConfigStorage(baiduWaimaiConfigStorage);
         bdWmClient.setLogListener((cmd, isSuccess, request, response) -> {
             System.out.println("cmd:"+cmd);
