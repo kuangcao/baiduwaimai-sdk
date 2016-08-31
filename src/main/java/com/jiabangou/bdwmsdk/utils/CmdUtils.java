@@ -6,6 +6,7 @@ import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
 import com.jiabangou.bdwmsdk.model.CmdSign;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -145,8 +146,11 @@ public class CmdUtils {
         String result = "";
         for (int i = 0; i < str.length(); i++) {
             int chr1 = (char) str.charAt(i);
-            if (chr1 >= 19968 && chr1 <= 171941) {
-                result += "\\u" + Integer.toHexString(chr1);
+//            if (chr1 >= 19968 && chr1 <= 171941) {
+            //解决一些符号unicode编码问题
+            if (chr1 >= 127) {
+                result += "\\u" + StringUtils.leftPad(Integer.toHexString(chr1), 4, "0");
+
             } else {
                 result += str.charAt(i);
             }
