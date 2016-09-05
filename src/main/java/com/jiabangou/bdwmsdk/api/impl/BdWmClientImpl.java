@@ -80,7 +80,16 @@ public class BdWmClientImpl implements BdWmClient {
                 throw new BdWmErrorException(1, "pushConsumer does not implement");
             }
             if (PushConsumer.CMD_ORDER_CREATE.equals(requestCmd.getCmd())) {
-                String sourceOrderId = pushConsumer.createOrder(TypeUtils.castToJavaBean(requestCmd.getBody(), OrderDetail.class));
+
+                final OrderDetail orderDetail = TypeUtils.castToJavaBean(requestCmd.getBody(), OrderDetail.class);
+                if (orderDetail.getOrder().getSend_immediately() == 1) {
+                    final OrderDetail detail = orderService.getOrderDetail(orderDetail.getOrder().getOrder_id());
+                    System.out.println("通过接口重新获取的订单详情信息");
+                    System.out.println(detail.getOrder().toString());
+                    orderDetail.getOrder().setSend_time(detail.getOrder().getSend_time());
+                }
+
+                String sourceOrderId = pushConsumer.createOrder(orderDetail);
                 Map<String, String> data = new HashMap<String, String>() {{
                     put("source_order_id", sourceOrderId);
                 }};
