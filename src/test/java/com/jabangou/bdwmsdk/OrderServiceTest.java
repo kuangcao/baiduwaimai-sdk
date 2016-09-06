@@ -41,7 +41,7 @@ public class OrderServiceTest extends ServiceTest {
     @Test
     public void getOrder() throws BdWmErrorException {
         OrderService orderService = this.getBdWmClient().getOrderService();
-        OrderDetail orderDetail = orderService.getOrderDetail("14601106253275");
-        System.out.print(1);
+        OrderDetail orderDetail = orderService.getOrderDetail("14731272312509");
+        System.out.print(orderDetail);
     }
 }
