@@ -6,7 +6,7 @@
 
     <groupId>com.jiabangou</groupId>
     <artifactId>baiduwaimai-sdk</artifactId>
-    <version>0.6.3-SNAPSHOT</version>
+    <version>0.6.3</version>
 
     <name>Baidu Waimai SDK</name>
     <description>百度外卖 SDK</description>
@@ -97,27 +97,27 @@
     </dependencies>
 
     <distributionManagement>
-        <!--<snapshotRepository>-->
-            <!--<id>oss</id>-->
-            <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
-        <!--</snapshotRepository>-->
-        <!--<repository>-->
-            <!--<id>oss</id>-->
-            <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-        <!--</repository>-->
-
         <snapshotRepository>
-            <id>jbg</id>
-            <name>meicanyun Snapshot</name>
-            <url>http://112.74.39.40:8081/nexus/content/repositories/snapshots/</url>
-            <uniqueVersion>true</uniqueVersion>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-
         <repository>
-            <id>jbg</id>
-            <name>meicanyun Release</name>
-            <url>http://112.74.39.40:8081/nexus/content/repositories/releases/</url>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+
+        <!--<snapshotRepository>-->
+        <!--<id>jbg</id>-->
+        <!--<name>meicanyun Snapshot</name>-->
+        <!--<url>http://112.74.39.40:8081/nexus/content/repositories/snapshots/</url>-->
+        <!--<uniqueVersion>true</uniqueVersion>-->
+        <!--</snapshotRepository>-->
+
+        <!--<repository>-->
+        <!--<id>jbg</id>-->
+        <!--<name>meicanyun Release</name>-->
+        <!--<url>http://112.74.39.40:8081/nexus/content/repositories/releases/</url>-->
+        <!--</repository>-->
     </distributionManagement>
 
     <profiles>
