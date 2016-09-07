@@ -35,8 +35,11 @@ public class DishDetail implements Serializable {
     //描述（不必填）
     private String description;
 
-    //营业时间
-    private List<List<AvailableTime>> available_times;
+    //菜品可售时间
+    //由于返回的菜品可售时间结构不固定所以用Object对象接收
+    //可售时间七天都设置的时候返回的结构为List<List<AvailableTime>>
+    //可售时间只设置其中几天的时候返回的结构为HashMap<String, List<AvailableTime>>
+    private Object available_times;
 
     //菜品排序
     private Integer rank;
@@ -151,11 +154,11 @@ public class DishDetail implements Serializable {
         this.description = description;
     }
 
-    public List<List<AvailableTime>> getAvailable_times() {
+    public Object getAvailable_times() {
         return available_times;
     }
 
-    public void setAvailable_times(List<List<AvailableTime>> available_times) {
+    public void setAvailable_times(Object available_times) {
         this.available_times = available_times;
     }
 
