@@ -54,11 +54,11 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
     //菜品阈值设置
     public static final String COMMAND_DISH_THRESHOLD_SET_V2 = "dish.threshold.setv2";
 
-    //菜品阈值设置
-    public static final String COMMAND_DISH_THRESHOLD_SET = "dish.threshold.set";
-
     //菜品批量替换
     public static final String COMMAND_DISH_REPLACE_BATCH = "dish.replace.batch";
+
+    //菜品停售
+    public static final String COMMAND_DISH_SALEOUT = "dish.saleout";
 
     @Override
     public long createCategory(Category category) throws BdWmErrorException {
@@ -128,6 +128,14 @@ public class DishServiceImpl extends BdWmBaseService implements DishService {
         bodyMap.put("dish_id", dishId);
         bodyMap.put("shop_id", shopId);
         execute(COMMAND_DISH_DELETE, bodyMap);
+    }
+
+    @Override
+    public void saleout(String shopId, String dishId) throws BdWmErrorException {
+        Map<String, String> bodyMap = new LinkedHashMap<>(2);
+        bodyMap.put("dish_id", dishId);
+        bodyMap.put("shop_id", shopId);
+        execute(COMMAND_DISH_SALEOUT, bodyMap);
     }
 
     @Override

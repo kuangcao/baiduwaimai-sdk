@@ -115,6 +115,18 @@ public interface DishService extends BdWmService {
 
     /**
      * <pre>
+     * 菜品停售
+     * 停售后会在下一个库存周期内自动恢复。
+     * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_saleout
+     * </pre>
+     * @param shopId
+     * @param dishId
+     * @throws BdWmErrorException
+     */
+    void saleout(String shopId, String dishId) throws BdWmErrorException;
+
+    /**
+     * <pre>
      * 菜品库存阈值设置
      * 详情请见: http://api.waimai.baidu.com/openapi/doc/interface?md=API2.0_dish_threshold_set
      * </pre>
