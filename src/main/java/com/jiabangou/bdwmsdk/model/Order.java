@@ -23,6 +23,60 @@ public class Order implements Serializable {
     private int delivery_party;
     private String create_time;
     private String cancel_time;
+    private String pickup_time;
+    private String atshop_time;
+    private String delivery_time;
+    private String delivery_phone;
+    private String finished_time;
+    private String confirm_time;
+
+    public String getPickup_time() {
+        return pickup_time;
+    }
+
+    public void setPickup_time(String pickup_time) {
+        this.pickup_time = pickup_time;
+    }
+
+    public String getAtshop_time() {
+        return atshop_time;
+    }
+
+    public void setAtshop_time(String atshop_time) {
+        this.atshop_time = atshop_time;
+    }
+
+    public String getDelivery_time() {
+        return delivery_time;
+    }
+
+    public void setDelivery_time(String delivery_time) {
+        this.delivery_time = delivery_time;
+    }
+
+    public String getDelivery_phone() {
+        return delivery_phone;
+    }
+
+    public void setDelivery_phone(String delivery_phone) {
+        this.delivery_phone = delivery_phone;
+    }
+
+    public String getFinished_time() {
+        return finished_time;
+    }
+
+    public void setFinished_time(String finished_time) {
+        this.finished_time = finished_time;
+    }
+
+    public String getConfirm_time() {
+        return confirm_time;
+    }
+
+    public void setConfirm_time(String confirm_time) {
+        this.confirm_time = confirm_time;
+    }
 
     public String getOrder_id() {
         return order_id;
@@ -184,7 +238,16 @@ public class Order implements Serializable {
             return false;
         if (remark != null ? !remark.equals(order.remark) : order.remark != null) return false;
         if (create_time != null ? !create_time.equals(order.create_time) : order.create_time != null) return false;
-        return cancel_time != null ? cancel_time.equals(order.cancel_time) : order.cancel_time == null;
+        if (cancel_time != null ? !cancel_time.equals(order.cancel_time) : order.cancel_time != null) return false;
+        if (pickup_time != null ? !pickup_time.equals(order.pickup_time) : order.pickup_time != null) return false;
+        if (atshop_time != null ? !atshop_time.equals(order.atshop_time) : order.atshop_time != null) return false;
+        if (delivery_time != null ? !delivery_time.equals(order.delivery_time) : order.delivery_time != null)
+            return false;
+        if (delivery_phone != null ? !delivery_phone.equals(order.delivery_phone) : order.delivery_phone != null)
+            return false;
+        if (finished_time != null ? !finished_time.equals(order.finished_time) : order.finished_time != null)
+            return false;
+        return confirm_time != null ? confirm_time.equals(order.confirm_time) : order.confirm_time == null;
 
     }
 
@@ -207,6 +270,12 @@ public class Order implements Serializable {
         result = 31 * result + delivery_party;
         result = 31 * result + (create_time != null ? create_time.hashCode() : 0);
         result = 31 * result + (cancel_time != null ? cancel_time.hashCode() : 0);
+        result = 31 * result + (pickup_time != null ? pickup_time.hashCode() : 0);
+        result = 31 * result + (atshop_time != null ? atshop_time.hashCode() : 0);
+        result = 31 * result + (delivery_time != null ? delivery_time.hashCode() : 0);
+        result = 31 * result + (delivery_phone != null ? delivery_phone.hashCode() : 0);
+        result = 31 * result + (finished_time != null ? finished_time.hashCode() : 0);
+        result = 31 * result + (confirm_time != null ? confirm_time.hashCode() : 0);
         return result;
     }
 
@@ -230,6 +299,12 @@ public class Order implements Serializable {
                 ", delivery_party=" + delivery_party +
                 ", create_time='" + create_time + '\'' +
                 ", cancel_time='" + cancel_time + '\'' +
+                ", pickup_time='" + pickup_time + '\'' +
+                ", atshop_time='" + atshop_time + '\'' +
+                ", delivery_time='" + delivery_time + '\'' +
+                ", delivery_phone='" + delivery_phone + '\'' +
+                ", finished_time='" + finished_time + '\'' +
+                ", confirm_time='" + confirm_time + '\'' +
                 '}';
     }
 }

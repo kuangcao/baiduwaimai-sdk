@@ -1,7 +1,6 @@
 package com.jiabangou.bdwmsdk.api.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.util.TypeUtils;
 import com.jiabangou.bdwmsdk.api.*;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
@@ -81,13 +80,8 @@ public class BdWmClientImpl implements BdWmClient {
             }
             if (PushConsumer.CMD_ORDER_CREATE.equals(requestCmd.getCmd())) {
 
-                final OrderDetail orderDetail = TypeUtils.castToJavaBean(requestCmd.getBody(), OrderDetail.class);
-                /*if (orderDetail.getOrder().getSend_immediately() == 1) {
-                    final OrderDetail detail = orderService.getOrderDetail(orderDetail.getOrder().getOrder_id());
-                    System.out.println("通过接口重新获取的订单详情信息");
-                    System.out.println(detail.getOrder().toString());
-                    orderDetail.getOrder().setSend_time(detail.getOrder().getSend_time());
-                }*/
+                final OrderDetail orderDetail = orderService.getOrderDetail(((JSONObject) requestCmd.getBody()).
+                        getJSONObject("order").getString("order_id"));
 
                 String sourceOrderId = pushConsumer.createOrder(orderDetail);
                 Map<String, String> data = new HashMap<String, String>() {{
