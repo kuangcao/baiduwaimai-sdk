@@ -27,10 +27,13 @@ public class BdWmBaseService implements BdWmService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BdWmBaseService.class);
 
+    public static final String HTTP_METHOD_POST = "POST";
+
     protected BdWmConfigStorage bdWmConfigStorage;
     protected LogListener logListener;
     protected HttpHost httpProxy;
     protected CloseableHttpClient httpClient;
+
 
     @Override
     public void setBdWmConfigStorage(BdWmConfigStorage bdWmConfigStorage) {
@@ -44,7 +47,7 @@ public class BdWmBaseService implements BdWmService {
 
     private void logging(String cmd, boolean isSuccess, String request, String response) {
         if (this.logListener != null) {
-            this.logListener.requestEvent(cmd, isSuccess, request, response);
+            this.logListener.requestEvent(cmd, HTTP_METHOD_POST, isSuccess, request, response);
         }
     }
 

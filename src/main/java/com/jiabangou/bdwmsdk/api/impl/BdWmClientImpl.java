@@ -78,9 +78,10 @@ public class BdWmClientImpl implements BdWmClient {
             if (this.pushConsumer == null) {
                 throw new BdWmErrorException(1, "pushConsumer does not implement");
             }
+            Cmd responseCmd = null;
             if (PushConsumer.CMD_ORDER_CREATE.equals(requestCmd.getCmd())) {
 
-                final OrderDetail orderDetail = orderService.getOrderDetail(((JSONObject) requestCmd.getBody()).
+                final OrderDetail orderDetail = getOrderService().getOrderDetail(((JSONObject) requestCmd.getBody()).
                         getJSONObject("order").getString("order_id"));
 
                 String sourceOrderId = pushConsumer.createOrder(orderDetail);
@@ -88,7 +89,7 @@ public class BdWmClientImpl implements BdWmClient {
                     put("source_order_id", sourceOrderId);
                 }};
 
-                return CmdUtils.buildSuccessCmd(
+                responseCmd = CmdUtils.buildSuccessCmd(
                         baiduWaimaiConfigStorage.getSource(),
                         baiduWaimaiConfigStorage.getSecret(),
                         CmdUtils.VERSION,
@@ -98,7 +99,7 @@ public class BdWmClientImpl implements BdWmClient {
                 OrderStatusResult orderStatusResult = pushConsumer
                         .getOrderStatus(((JSONObject) requestCmd.getBody()).getString("order_id"));
 
-                return CmdUtils.buildSuccessCmd(
+                responseCmd = CmdUtils.buildSuccessCmd(
                         baiduWaimaiConfigStorage.getSource(),
                         baiduWaimaiConfigStorage.getSecret(),
                         CmdUtils.VERSION,
@@ -110,19 +111,31 @@ public class BdWmClientImpl implements BdWmClient {
                 int status = jsonObject.getIntValue("status");
                 pushConsumer.pushOrderStatus(orderId, status);
 
-                return CmdUtils.buildSuccessCmd(
+                responseCmd = CmdUtils.buildSuccessCmd(
                         baiduWaimaiConfigStorage.getSource(),
                         baiduWaimaiConfigStorage.getSecret(),
                         CmdUtils.VERSION,
                         CmdUtils.getResponseCmdName(requestCmd.getCmd()));
             }
+            if(responseCmd != null){
+                logging(requestCmd.getCmd(), true, requestJsonString, JSONObject.toJSONString(responseCmd));
+                return responseCmd;
+            }
             throw new BdWmErrorException(1, "push cmd processer is not found.");
         } catch (BdWmErrorException e) {
             JSONObject jsonObject = JSONObject.parseObject(requestJsonString);
-            return CmdUtils.buildErrorCmd(baiduWaimaiConfigStorage.getSource(),
+            Cmd responseCmd = CmdUtils.buildErrorCmd(baiduWaimaiConfigStorage.getSource(),
                     baiduWaimaiConfigStorage.getSecret(), CmdUtils.VERSION,
                     CmdUtils.getResponseCmdName(jsonObject.getString("cmd")),
                     e);
+            logging(jsonObject.getString("cmd"), false, requestJsonString, JSONObject.toJSONString(responseCmd));
+            return responseCmd;
+        }
+    }
+
+    private void logging(String cmd, boolean isSuccess, String request, String response) {
+        if (logListener != null) {
+            logListener.requestEvent(cmd, BdWmBaseService.HTTP_METHOD_POST, isSuccess, request, response);
         }
     }
 
