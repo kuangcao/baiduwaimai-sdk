@@ -1,5 +1,6 @@
 package com.jiabangou.bdwmsdk.api;
 
+import com.jiabangou.bdwmsdk.model.OrderDelivery;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
 import com.jiabangou.bdwmsdk.model.OrderStatusResult;
 
@@ -45,5 +46,5 @@ public interface PushConsumer {
      * @param orderId 订单id
      * @param status  状态
      */
-    void pushOrderStatus(String orderId, int status);
+    void pushOrderStatus(String orderId, int status, OrderDelivery orderDelivery);
 }

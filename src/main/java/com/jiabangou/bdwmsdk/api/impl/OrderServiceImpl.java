@@ -5,9 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
-import com.jiabangou.bdwmsdk.model.OrderDetail;
-import com.jiabangou.bdwmsdk.model.OrderLite;
-import com.jiabangou.bdwmsdk.model.Page;
+import com.jiabangou.bdwmsdk.model.*;
 import com.jiabangou.bdwmsdk.utils.CmdUtils;
 
 import java.util.LinkedHashMap;
@@ -69,6 +67,20 @@ public class OrderServiceImpl extends BdWmBaseService implements OrderService {
         return JSON.parseObject(jsonObject.getJSONObject(CmdUtils.DATA).toJSONString(),
                 new TypeReference<Page<OrderLite>>() {
                 });
+    }
+
+    @Override
+    public OrderDelivery getOrderDelivery(String orderId) throws BdWmErrorException {
+        OrderDetail orderDetail = this.getOrderDetail(orderId);
+        Order order = orderDetail.getOrder();
+        OrderDelivery orderDelivery = new OrderDelivery();
+        orderDelivery.setPickup_time(order.getPickup_time());
+        orderDelivery.setAtshop_time(order.getAtshop_time());
+        orderDelivery.setConfirm_time(order.getConfirm_time());
+        orderDelivery.setDelivery_phone(order.getDelivery_phone());
+        orderDelivery.setDelivery_time(order.getDelivery_time());
+        orderDelivery.setFinished_time(order.getFinished_time());
+        return orderDelivery;
     }
 
 }

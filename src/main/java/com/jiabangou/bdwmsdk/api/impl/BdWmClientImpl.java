@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jiabangou.bdwmsdk.api.*;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Cmd;
+import com.jiabangou.bdwmsdk.model.OrderDelivery;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
 import com.jiabangou.bdwmsdk.model.OrderStatusResult;
 import com.jiabangou.bdwmsdk.utils.CmdUtils;
@@ -106,10 +107,14 @@ public class BdWmClientImpl implements BdWmClient {
                         CmdUtils.getResponseCmdName(requestCmd.getCmd()),
                         orderStatusResult);
             } else if (PushConsumer.CMD_ORDER_STATUS_PUSH.equals(requestCmd.getCmd())) {
+
                 JSONObject jsonObject = (JSONObject) requestCmd.getBody();
                 String orderId = jsonObject.getString("order_id");
                 int status = jsonObject.getIntValue("status");
-                pushConsumer.pushOrderStatus(orderId, status);
+
+                final OrderDelivery orderDelivery = getOrderService().getOrderDelivery(orderId);
+
+                pushConsumer.pushOrderStatus(orderId, status, orderDelivery);
 
                 responseCmd = CmdUtils.buildSuccessCmd(
                         baiduWaimaiConfigStorage.getSource(),

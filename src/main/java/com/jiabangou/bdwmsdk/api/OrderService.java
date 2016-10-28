@@ -1,6 +1,7 @@
 package com.jiabangou.bdwmsdk.api;
 
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
+import com.jiabangou.bdwmsdk.model.OrderDelivery;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
 import com.jiabangou.bdwmsdk.model.OrderLite;
 import com.jiabangou.bdwmsdk.model.Page;
@@ -80,6 +81,16 @@ public interface OrderService extends BdWmService {
      * @throws BdWmErrorException
      */
     Page<OrderLite> getOrderLites(long startTime, long endTime) throws BdWmErrorException;
+
+    /**
+     * <pre>
+     * 获取订单详情的配送信息
+     * 提供给合作方查看配送信息所用。
+     * </pre>
+     *
+     * @throws BdWmErrorException
+     */
+    OrderDelivery getOrderDelivery(String orderId) throws BdWmErrorException;
 
 
 }
