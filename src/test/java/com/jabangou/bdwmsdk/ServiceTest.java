@@ -14,12 +14,11 @@ public class ServiceTest {
 
         BdWmClientImpl bdWmClient = new BdWmClientImpl();
         BdWmInMemoryConfigStorage baiduWaimaiConfigStorage = new BdWmInMemoryConfigStorage();
-        //baiduWaimaiConfigStorage.setSource("65400");
-        //baiduWaimaiConfigStorage.setSecret("2540f3c01ae977d8");
-        
+
         bdWmClient.setBaiduWaimaiConfigStorage(baiduWaimaiConfigStorage);
-        bdWmClient.setLogListener((cmd, isSuccess, request, response) -> {
+        bdWmClient.setLogListener((cmd, method, isSuccess, request, response) -> {
             System.out.println("cmd:"+cmd);
+            System.out.println("method:"+method);
             System.out.println("isSuccess:"+isSuccess);
             System.out.println("request:"+ JSON.toJSONString(JSON.parseObject(request), SerializerFeature.PrettyFormat, SerializerFeature.SortField));
             System.out.println("response:"+JSON.toJSONString(JSON.parseObject(response), SerializerFeature.PrettyFormat, SerializerFeature.SortField));

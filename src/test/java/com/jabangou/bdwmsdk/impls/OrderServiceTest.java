@@ -1,7 +1,9 @@
-package com.jabangou.bdwmsdk;
+package com.jabangou.bdwmsdk.impls;
 
+import com.jabangou.bdwmsdk.ServiceTest;
 import com.jiabangou.bdwmsdk.api.OrderService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
+import com.jiabangou.bdwmsdk.model.OrderDelivery;
 import com.jiabangou.bdwmsdk.model.OrderDetail;
 import org.junit.Test;
 
@@ -13,7 +15,7 @@ public class OrderServiceTest extends ServiceTest {
     @Test
     public void confirmOrder() throws BdWmErrorException {
         OrderService orderService = this.getBdWmClient().getOrderService();
-        orderService.confirm("14577747357622");
+        orderService.confirm("14787568788189");
 
     }
 
@@ -27,7 +29,7 @@ public class OrderServiceTest extends ServiceTest {
     @Test
     public void cancel() throws BdWmErrorException {
         OrderService orderService = this.getBdWmClient().getOrderService();
-        orderService.cancel("14576969553529", 1, "不在配送范围内");
+        orderService.cancel("14793606388453", 1, "不在配送范围内");
 
     }
 
@@ -41,7 +43,14 @@ public class OrderServiceTest extends ServiceTest {
     @Test
     public void getOrder() throws BdWmErrorException {
         OrderService orderService = this.getBdWmClient().getOrderService();
-        OrderDetail orderDetail = orderService.getOrderDetail("14731272312509");
+        OrderDetail orderDetail = orderService.getOrderDetail("14775646932353");
         System.out.print(orderDetail);
+    }
+
+    @Test
+    public void getOrderDelivery() throws BdWmErrorException {
+        OrderService orderService = this.getBdWmClient().getOrderService();
+        OrderDelivery orderDelivery = orderService.getOrderDelivery("14775646932353");
+        System.out.print(orderDelivery);
     }
 }

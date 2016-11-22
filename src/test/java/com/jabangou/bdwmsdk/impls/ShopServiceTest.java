@@ -1,5 +1,6 @@
-package com.jabangou.bdwmsdk;
+package com.jabangou.bdwmsdk.impls;
 
+import com.jabangou.bdwmsdk.ServiceTest;
 import com.jiabangou.bdwmsdk.api.ShopService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.*;
@@ -16,7 +17,7 @@ public class ShopServiceTest extends ServiceTest {
     @Test
     public void testGetShop() throws BdWmErrorException {
         ShopService shopService = this.getBdWmClient().getShopService();
-        ShopDetail shopDetail = shopService.getDetail("8617");
+        ShopDetail shopDetail = shopService.getDetail("25");
         System.out.print(shopDetail.toString());
     }
 
@@ -36,7 +37,7 @@ public class ShopServiceTest extends ServiceTest {
     @Test
     public void testShopCreate() throws BdWmErrorException {
         Shop body = new Shop();
-        body.setShop_id("9998");
+        body.setShop_id("test_01");
         body.setName("王磊测试门店1");
 //        body.setShop_logo("");
         body.setProvince("北京市");
@@ -108,9 +109,18 @@ public class ShopServiceTest extends ServiceTest {
     public void testUpdateShop() throws BdWmErrorException {
 
         Shop shop = new Shop();
-        shop.setShop_id("8617");
-        shop.setMin_order_price(1);
-        shop.setName("天坛公园1");
+        shop.setShop_id("25");
+        shop.setMin_order_price(0);
+        DeliveryRegion deliveryRegion = new DeliveryRegion();
+        deliveryRegion.setName("三元桥配送区");
+        deliveryRegion.setDelivery_time("60");
+        deliveryRegion.setDelivery_fee("0");
+        List<List<Region>> regionList = new ArrayList<List<Region>>();
+        regionList.add(getRegions());
+        deliveryRegion.setRegion(regionList);
+        List<DeliveryRegion> deliveryRegions = new ArrayList<DeliveryRegion>();
+        deliveryRegions.add(deliveryRegion);
+        shop.setDelivery_region(deliveryRegions);
         ShopService shopService = this.getBdWmClient().getShopService();
         boolean result = shopService.update(shop);
         System.out.print(result);
@@ -120,21 +130,21 @@ public class ShopServiceTest extends ServiceTest {
     public void testOfflineShop() throws BdWmErrorException {
 
         ShopService shopService = this.getBdWmClient().getShopService();
-        shopService.offline("2520");
+        shopService.offline("test_01");
     }
 
     @Test
     public void testOpenShop() throws BdWmErrorException {
 
         ShopService shopService = this.getBdWmClient().getShopService();
-        shopService.open("13");
+        shopService.open("18");
     }
 
     @Test
     public void testCloseShop() throws BdWmErrorException {
 
         ShopService shopService = this.getBdWmClient().getShopService();
-        shopService.close("test1");
+        shopService.close("27");
     }
 
     @Test
@@ -144,7 +154,7 @@ public class ShopServiceTest extends ServiceTest {
 
         for(int i=0; i<9;i++){
             i = 9;
-            int a = 9;
+            int a = 1;
             Picture picture = new Picture();
             picture.setType(a);
             picture.setDesc(String.valueOf(a));
@@ -152,6 +162,7 @@ public class ShopServiceTest extends ServiceTest {
             pictures.add(picture);
         }
 
-        shopService.uploadIdentityPicture("9628", pictures);
+        shopService.uploadIdentityPicture("18", pictures);
     }
+
 }

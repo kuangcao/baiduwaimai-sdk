@@ -1,5 +1,6 @@
-package com.jabangou.bdwmsdk;
+package com.jabangou.bdwmsdk.impls;
 
+import com.jabangou.bdwmsdk.ServiceTest;
 import com.jiabangou.bdwmsdk.api.DishService;
 import com.jiabangou.bdwmsdk.exception.BdWmErrorException;
 import com.jiabangou.bdwmsdk.model.Category;
@@ -25,8 +26,8 @@ public class DishCategoryServiceTest extends ServiceTest {
 
         DishService dishService = this.getBdWmClient().getDishService();
         Category category = new Category();
-        category.setShop_id("9628");
-        category.setName("菜品规格下单");
+        category.setShop_id("test_01");
+        category.setName("测试分类");
         category.setRank(1);
         long category_id = dishService.createCategory(category);
         System.out.print(category_id);
@@ -44,5 +45,4 @@ public class DishCategoryServiceTest extends ServiceTest {
         dishService.updateCategory(categoryUpdate);
         System.out.print(categoryUpdate);
     }
-
 }

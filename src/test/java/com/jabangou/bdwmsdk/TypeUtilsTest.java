@@ -11,7 +11,15 @@ import com.jiabangou.bdwmsdk.model.Page;
 import com.jiabangou.bdwmsdk.utils.CmdUtils;
 import org.junit.Test;
 
-import java.util.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import static com.jiabangou.bdwmsdk.utils.CmdUtils.chinaToUnicode;
 
 /**
  * Created by freeway on 16/7/31.
@@ -211,9 +219,127 @@ public class TypeUtilsTest {
     }
 
     @Test
+    public void testJson(){
+        String json = "{\"body\":{\"discount\":[{\"activity_id\":\"653873\",\"agent_rate\":0,\"baidu_rate\":0,\"desc\":\"\\u7acb\\u51cf\\u4f18\\u60e0\",\"fee\":500,\"logistics_rate\":0,\"rule_id\":815075,\"shop_rate\":500,\"type\":\"jian\"}],\"order\":{\"create_time\":\"1472531236\",\"delivery_party\":1,\"discount_fee\":500,\"invoice_title\":\"\",\"need_invoice\":2,\"order_id\":\"14725312367946\",\"package_fee\":0,\"pay_status\":2,\"pay_type\":2,\"remark\":\"\",\"send_fee\":500,\"send_immediately\":1,\"send_time\":\"1\",\"shop_fee\":6308,\"total_fee\":7900,\"user_fee\":7400},\"products\":[{\"package_amount\":\"1\",\"package_fee\":0,\"package_price\":0,\"product_amount\":1,\"product_fee\":6800,\"product_id\":\"43\",\"product_name\":\"\\u5168\\u805a\\u5fb7\\u624b\\u4f5c\\u9e2d\\u5377\",\"product_price\":6800,\"total_fee\":6800,\"upc\":\"\"},{\"package_amount\":\"1\",\"package_fee\":0,\"package_price\":0,\"product_amount\":1,\"product_fee\":600,\"product_id\":\"147\",\"product_name\":\"\\u5317\\u51b0\\u6d0b-\\u6a59\\u5473\",\"product_price\":600,\"total_fee\":600,\"upc\":\"\"}],\"shop\":{\"baidu_shop_id\":\"1600777150\",\"id\":\"2\",\"name\":\"\\u5168\\u805a\\u5fb7\\uff08\\u897f\\u5ba2\\u7ad9\\u5e97\\uff09\"},\"source\":\"30137\",\"user\":{\"address\":\"\\u4e3d\\u6c34\\u83b2\\u82b1\\u4fe1\\u5821·\\u6c34\\u5cb8\\u516c\\u9986 2\\u53f7\\u697c1\\u5355\\u5143\",\"coord\":{\"latitude\":39.898306,\"longitude\":116.335843},\"gender\":1,\"name\":\"\\u90ed\\u6dfc\",\"phone\":\"13910777267\"}},\"cmd\":\"order.create\",\"secret\":\"66a2b33605692114\",\"source\":\"30137\",\"ticket\":\"4F83EDBF-5920-BF64-02BF-40709E303798\",\"timestamp\":1472531256,\"version\":\"2.0\"}";
+        System.out.println(getMD5(json));
+        System.out.println(chinaToUnicode("。"));
+    }
+
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+            // Now we need to zero pad it if you actually want the full 32 chars.
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext.toUpperCase();
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
     public void testSign() throws BdWmErrorException {
-        String jsonString = "{\"body\":{\"errno\":0,\"error\":\"success\",\"data\":{\"total\":10,\"page\":1,\"pages\":1,\"list\":[{\"order_id\":\"14576949686552\",\"status\":\"10\",\"create_time\":1457694969,\"order_status\":10},{\"order_id\":\"14576968469418\",\"status\":\"10\",\"create_time\":1457696848,\"order_status\":10},{\"order_id\":\"14576969553529\",\"status\":\"10\",\"create_time\":1457696956,\"order_status\":10},{\"order_id\":\"14577674993703\",\"status\":\"10\",\"create_time\":1457767500,\"order_status\":10},{\"order_id\":\"14577685540271\",\"status\":\"10\",\"create_time\":1457768554,\"order_status\":10},{\"order_id\":\"14577747357622\",\"status\":\"10\",\"create_time\":1457774736,\"order_status\":10},{\"order_id\":\"14577762854078\",\"status\":\"10\",\"create_time\":1457776286,\"order_status\":10},{\"order_id\":\"14579559636074\",\"status\":\"10\",\"create_time\":1457955964,\"order_status\":10},{\"order_id\":\"14580249291748\",\"status\":\"10\",\"create_time\":1458024930,\"order_status\":10},{\"order_id\":\"14580286985950\",\"status\":\"10\",\"create_time\":1458028699,\"order_status\":10}]}},\"cmd\":\"resp.order.list\",\"sign\":\"F2F89111750CEB2140A7B68B1EBFA389\",\"source\":\"65400\",\"ticket\":\"C6314A18-8633-D9B5-CB5E-126AAB0F8C53\",\"timestamp\":1469977613,\"version\":\"2\"}";
-        Cmd cmd = CmdUtils.parseCmd(jsonString, "65400", "2540f3c01ae977d8");
+        String jsonString = "{\n" +
+                "    \"body\": {\n" +
+                "        \"source\": \"30137\",\n" +
+                "        \"shop\": {\n" +
+                "            \"id\": \"7\",\n" +
+                "            \"name\": \"全聚德（望京店）\",\n" +
+                "            \"baidu_shop_id\": \"1600777377\"\n" +
+                "        },\n" +
+                "        \"order\": {\n" +
+                "            \"order_id\": \"14726117347342\",\n" +
+                "            \"send_immediately\": 1,\n" +
+                "            \"send_time\": \"1\",\n" +
+                "            \"send_fee\": 500,\n" +
+                "            \"package_fee\": 0,\n" +
+                "            \"discount_fee\": 3700,\n" +
+                "            \"total_fee\": 7300,\n" +
+                "            \"shop_fee\": 2852,\n" +
+                "            \"user_fee\": 3600,\n" +
+                "            \"pay_type\": 2,\n" +
+                "            \"pay_status\": 2,\n" +
+                "            \"need_invoice\": 1,\n" +
+                "            \"invoice_title\": \"北京奥瑞国际投资控股股份有限公司，发票金额：20元。\",\n" +
+                "            \"remark\": \"\",\n" +
+                "            \"delivery_party\": 1,\n" +
+                "            \"create_time\": \"1472611734\"\n" +
+                "        },\n" +
+                "        \"user\": {\n" +
+                "            \"name\": \"霍妍\",\n" +
+                "            \"phone\": \"15275202316\",\n" +
+                "            \"gender\": 2,\n" +
+                "            \"address\": \"北京丽都维景酒店 丽都假日酒店T4办公室\",\n" +
+                "            \"coord\": {\n" +
+                "                \"longitude\": 116.485548,\n" +
+                "                \"latitude\": 39.984232\n" +
+                "            }\n" +
+                "        },\n" +
+                "        \"products\": [\n" +
+                "            {\n" +
+                "                \"product_id\": \"564\",\n" +
+                "                \"upc\": \"\",\n" +
+                "                \"product_name\": \"干锅鸭脯菜花\",\n" +
+                "                \"product_price\": 2800,\n" +
+                "                \"product_amount\": 1,\n" +
+                "                \"product_fee\": 2800,\n" +
+                "                \"package_price\": 0,\n" +
+                "                \"package_amount\": \"1\",\n" +
+                "                \"package_fee\": 0,\n" +
+                "                \"total_fee\": 2800\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"product_id\": \"493\",\n" +
+                "                \"upc\": \"\",\n" +
+                "                \"product_name\": \"麻婆鸭肉豆腐套餐\",\n" +
+                "                \"product_price\": 3800,\n" +
+                "                \"product_amount\": 1,\n" +
+                "                \"product_fee\": 3800,\n" +
+                "                \"package_price\": 0,\n" +
+                "                \"package_amount\": \"1\",\n" +
+                "                \"package_fee\": 0,\n" +
+                "                \"total_fee\": 3800\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"product_id\": \"109\",\n" +
+                "                \"upc\": \"\",\n" +
+                "                \"product_name\": \"香米饭\",\n" +
+                "                \"product_price\": 200,\n" +
+                "                \"product_amount\": 1,\n" +
+                "                \"product_fee\": 200,\n" +
+                "                \"package_price\": 0,\n" +
+                "                \"package_amount\": \"1\",\n" +
+                "                \"package_fee\": 0,\n" +
+                "                \"total_fee\": 200\n" +
+                "            }\n" +
+                "        ],\n" +
+                "        \"discount\": [\n" +
+                "            {\n" +
+                "                \"type\": \"te\",\n" +
+                "                \"activity_id\": \"0\",\n" +
+                "                \"rule_id\": 0,\n" +
+                "                \"fee\": 3700,\n" +
+                "                \"baidu_rate\": 0,\n" +
+                "                \"shop_rate\": 3700,\n" +
+                "                \"agent_rate\": 0,\n" +
+                "                \"logistics_rate\": 0,\n" +
+                "                \"desc\": \"特价优惠\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    \"cmd\": \"order.create\",\n" +
+                "    \"sign\": \"F09D18E11329EB3CE439D67070FFAF58\",\n" +
+                "    \"source\": \"30137\",\n" +
+                "    \"ticket\": \"0F6B04CF-A1C5-21ED-5A19-D2CB246D3A4D\",\n" +
+                "    \"timestamp\": 1472611747,\n" +
+                "    \"version\": \"2.0\"\n" +
+                "}";
+        Cmd cmd = CmdUtils.parseCmd(jsonString, "30137", "66a2b33605692114");
         System.out.println(cmd);
     }
 
